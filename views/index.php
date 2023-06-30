@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>Smruthi App</title>
-    <meta property="og:title" content="Smruthi App" />
-    <?php require('views/partials/head.php'); ?>
+    <?php 
+    $config['APP_TITLE'] = "Smruthi website";
+
+    require('views/partials/head.php'); 
+
+    echo home();
+    ?>
 <body>
     
 </body>
