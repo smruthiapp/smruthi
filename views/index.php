@@ -6,115 +6,7 @@
     require('views/partials/head.php'); 
     ?>
 
-    <style>
-        body {
-            max-width: 540px; /* Set the maximum width to match a mobile device */
-            margin: 0 auto; /* Center the content horizontally */
-            padding-bottom: 60px; 
-        }
-        .navbar-brand img{
-            max-height: 100px;
-        }
-
-        .sloka{
-            white-space: pre-wrap;
-        }
-        .meaning{
-            margin-top: 10px;
-            line-height: 1;
-        }
-        .fs-7{
-            font-size: .875rem;
-        }
-        .fs-8{
-            font-size: .75rem;
-        }
-        .rounded{
-            border-radius: 20px !important;
-        }
-        .banner{
-            width: 90vw !important;
-        }
-
-        .namaskaram img{
-            max-height: 30vw;
-        }
-        .reading img{
-            max-width: 120px;
-        }
-        
-        .item .title{
-            height: auto;
-        }
-
-        .progress{
-            height: 6px !important;
-        }
-
-        .navbar-fixed-bottom{
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 1030;
-            max-width: 540px;
-            background-color: var(--smruthi-white); 
-            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding-top: 0;
-        }
-        .navbar-fixed-bottom a {
-            margin-top: 0;
-            text-decoration: none;
-            color: var(--smruthi-secondary-1); 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 4px solid transparent;
-            padding-top: 10px;
-        }
-
-        .navbar-fixed-bottom a i {
-            margin-bottom: 3px;
-        }
-        .navbar-fixed-bottom a i img{
-            height: 30px !important;
-        }
-
-        .navbar-fixed-bottom a.active {
-            color: var(--smruthi-primary); 
-            font-weight: 700;
-            border-top: 4px solid var(--smruthi-primary);
-        }
-        .navbar-fixed-bottom a:hover,
-        .navbar-fixed-bottom a:focus,
-        .navbar-fixed-bottom a:active{
-            border-top: 4px solid var(--smruthi-secondary-1);
-        }
-
-        
-        #randomVerse .illustration img {
-            margin-right: -10px;
-            margin-top: -40px;
-            min-width: 120px;
-            float: right;
-        }
-
-        /* Extra small devices (phones) */
-        @media (max-width: 440px) {
-        /* CSS rules for extra small devices */
-        .fs-7{
-            font-size: .75rem;
-        }
-        .fs-8{
-            font-size: .6rem;
-        }
-            
-        }
-    </style>
-
+  
   <body>
       <nav class="navbar">
         <div class="container-fluid d-flex justify-content-center">            
@@ -130,12 +22,12 @@
     <div class="container">
 
         <div class="d-flex justify-content-center">
-            <div class="banner card rounded bg-smruthi border-0 px-3 py-4" id="randomVerse">
+            <div class="banner card rounded bg-smruthi border-0 px-3 py-4" id="randomSloka">
 
                 <div class="d-flex justify-content-around">
-                    <div class="verse">
+                    <div class="details">
                         <div class="text-start">
-                            <h2 class="fs-2 text-smruthi-1">Verse of the Day</h2>
+                            <h2 class="fs-2 text-smruthi-1">Sloka of the Day</h2>
                             <div class="sloka text-smruthi-white fw-bold fs-7">कोन्वस्मिन्साम्प्रतं लोके गुणवान्कश्च वीर्यवान् ।
 धर्मज्ञश्च कृतज्ञश्च सत्यवाक्यो दृढव्रत:।।1.1.2।।</div>                    
                             <div class="meaning text-smruthi-1 fs-8">Who in this world lives today endowed with excellent qualities, prowess, righteousness, gratitude, truthfulness and firmness in his vows?</div>
@@ -156,7 +48,7 @@
         <div class="d-flex justify-content-center" id="reading">
             <div class="banner card rounded bg-smruthi-4 border-0" id="books">
                 <div class="card-body d-flex justify-content-around">
-                    <div class="verse">
+                    <div class="details">
                         <div class="text-smruthi fs-4">Last Read</div>
                         <div class="book text-smruthi-black fw-bold">Valmiki Ramayanam</div>
                         <div class="id text-smruthi-grey fs-7 fw-bold">Bala Kanda, Sarga 18, Sloka 12</div>
@@ -185,7 +77,7 @@
                                 <img src="<?php assets('img/gita.svg')?>" alt="illustration">
                             </div>
                                                 
-                            <div class="verse">
+                            <div class="details">
                                 <div class="title text-smruthi-black fw-bold text-nowrap">Srimad Bhagavad Gita</div>
                                 <div class="text-smruthi-black fs-7">32% Complete</div>
                                 <div class="progress bg-smruthi-2" role="progressbar" aria-label="Progress Bar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100">
@@ -205,7 +97,7 @@
                                 <img src="<?php assets('img/ramayanam.png')?>" alt="illustration">
                             </div>
                                                 
-                            <div class="verse">
+                            <div class="details">
                                 <div class="title text-smruthi-black fw-bold text-nowrap">Valmiki Ramayanam</div>
                                 <div class="text-smruthi-black fs-7">6% Complete</div>
                                 <div class="progress bg-smruthi-2" role="progressbar" aria-label="Progress Bar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100">
@@ -220,7 +112,8 @@
         </div>
 
         <?php include('views/partials/footer.php') ?>
-    
+
+    </div>
     <script>
     $('.owl-carousel').owlCarousel({
         loop:false,
@@ -232,7 +125,7 @@
     <script>
         active('.home')
 
-        truncate('#randomVerse .meaning', 100)
+        truncate('#randomSloka .meaning', 100)
 
         function truncate(elementSelector, maxLength) {
             const element = document.querySelector(elementSelector);
