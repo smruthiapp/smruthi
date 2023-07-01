@@ -21,7 +21,7 @@
             Profile
         </a>
     
-    </div>
+</div>
 
     <script>
         const home =document.querySelector('.home')
@@ -29,6 +29,7 @@
         const saved =document.querySelector('.saved')
         const profile =document.querySelector('.profile')
         function active(icon){
+         document.querySelector(icon).classList.add('active')
           const activeIcon = document.querySelector(icon+" img")
           activeIcon.src = activeIcon.src.replace('.svg', '-active.svg')
         }
