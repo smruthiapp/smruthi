@@ -17,6 +17,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+body{
+    overflow-x: hidden !important;
+}
+
 .btn:focus {
     outline: none !important;
     box-shadow: none !important;
@@ -193,3 +197,4 @@ Border Colors
 .navbar *{
     user-select: none !important;
 }
+
