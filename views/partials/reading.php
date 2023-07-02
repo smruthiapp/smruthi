@@ -1,5 +1,5 @@
-        <div class="d-flex justify-content-center" id="reading">
-            <div class="banner card rounded bg-smruthi-4 border-0" id="books">
+        <div class="d-flex justify-content-center">
+            <div class="banner card rounded bg-smruthi-4 border-0 ps-2" id="reading">
                 <div class="card-body d-flex justify-content-around">
                     <div class="details">
                         <div class="text-smruthi fs-4">Last Read</div>
