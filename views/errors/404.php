@@ -24,7 +24,10 @@ $config['APP_TITLE'] = "Page Not Found - ".$config['APP_NAME']
         <h4>The page you're looking for does not exist</h4>
         <h6>[<?php echo getRoute() ?>]</h6>
         <a href="<?php echo home();?>" class="btn btn-smruthi" rel="noopener">Go Back to Home</a>
+        
     </div>
+        <?php include('views/partials/footer.php') ?>
+
 </body>
 
 </html>
