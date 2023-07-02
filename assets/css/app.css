@@ -289,6 +289,7 @@ Border Colors
     align-items: center;
     border-top: 4px solid transparent;
     padding-top: 10px;
+    transition: .2s ease-in-out;
 }
 
 .navbar-fixed-bottom a i {
@@ -302,29 +303,52 @@ Border Colors
     color: var(--smruthi-primary); 
     font-weight: 700;
     border-top: 4px solid var(--smruthi-primary);
+    margin-top: -4px;
 }
 .navbar-fixed-bottom a:hover,
 .navbar-fixed-bottom a:focus,
 .navbar-fixed-bottom a:active{
     border-top: 4px solid var(--smruthi-secondary-1);
+    margin-top: -4px;
+    opacity: 0.8;
 }
 
 
 #randomSloka .illustration img {
     margin-right: -10px;
-    margin-top: -40px;
-    min-width: 120px;
+    margin-top: -80px;
+    min-width: 130px;
     float: right;
 }
 
-/* Extra small devices (phones) */
+#read{
+    .owl-carousel .card{
+        height: 220px !important;
+        width: 220px !important;
+    }
+    .card .illustration img{
+        max-height: 140px;
+    }
+}
+
+/* small devices (phones) */
 @media (max-width: 440px) {
-/* CSS rules for extra small devices */
+/* CSS rules for small devices */
     .fs-7{
         font-size: .75rem;
     }
     .fs-8{
         font-size: .6rem;
     }
+    #randomSloka .illustration img {
+        min-width: 100px;
+        margin-top: -20px;
+    }
     
+    #randomSloka .details{
+        max-width: 180px;
+    }
+    .reading img {
+        max-width: 90px;     
+    }
 }
