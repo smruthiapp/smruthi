@@ -3,6 +3,10 @@
     "path": "views/index.php",
     "pattern": null
   },
+  "read": {
+    "path": "views/read/index.php",
+    "pattern": "[a-z]"
+  },
  "db/migrate" : { 
     "path" : "views/migrate.php"
   },
