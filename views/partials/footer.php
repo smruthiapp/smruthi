@@ -1,7 +1,3 @@
-<footer class="footer my-5 text-center">
-  <h6>Developed By <strong>Amara Vaani Linguistic Technologies</strong></h6>
-</footer>
-
 <!-- Bottom Navbar -->
 <div class="navbar navbar-fixed-bottom container-fluid">
         <a href="<?php echo route('')?>"  class="home">
@@ -28,9 +24,46 @@
         const read =document.querySelector('.read')
         const saved =document.querySelector('.saved')
         const profile =document.querySelector('.profile')
+
+        path = window.location.pathname
+// Extract the path from the URL
+        var path = path.split("/").filter(Boolean)[1];
+        switch (path) {
+        case "read":
+            active('.read')
+            break;
+        case "saved":
+            active('.saved')
+            break;
+        case "profile":
+            active('.profile')
+            break;
+        default:
+            active('.home')
+            break;
+        }
+
+
         function active(icon){
          document.querySelector(icon).classList.add('active')
           const activeIcon = document.querySelector(icon+" img")
           activeIcon.src = activeIcon.src.replace('.svg', '-active.svg')
+        }
+        
+        function truncate(elementSelector, maxLength) {
+            const element = document.querySelector(elementSelector);
+            
+            if (!element) {
+                console.error(`Element with selector "${elementSelector}" not found.`);
+                return;
+            }
+            
+            const content = element.textContent;
+            
+            if (content.length <= maxLength) {
+                return;
+            }
+            const truncatedContent = content.slice(0, maxLength) + '...';
+            element.textContent = truncatedContent;
         }
     </script>
