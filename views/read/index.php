@@ -38,7 +38,7 @@
                         <div class="card-body">
                                                 
                             <div class="details">
-                                <div class="title text-smruthi-black fw-bold fs-7">Adhyayam <?php echo $i?></div>
+                                <div class="title text-smruthi-black fw-bold fs-7">Arjuna Vishada Yogam <?php echo $i?></div>
                                 <div class="text-smruthi fw-bold fs-7">47 Slokas</div>
                             </div>
                             

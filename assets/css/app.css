@@ -324,7 +324,7 @@ Border Colors
 #read{
     .owl-carousel .card{
         height: 180px !important;
-        width: 180px !important;
+        width: auto !important;
     }
     .card .illustration img{
         max-height: 100px;
