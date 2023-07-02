@@ -29,9 +29,7 @@
 <?php view('partials/reading');?>
         
         <h2 class="fs-2 text-smruthi mt-5 px-2">Books</h2>
-
         
-
         <div class="owl-carousel owl-theme mb-5 px-2" id="books">
 
                 <div class="item me-4">
@@ -50,7 +48,7 @@
                             </div>
                         </div>
                          
-                        <a href="<?php echo route('gita');?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
+                        <a href="<?php echo route('read/gita');?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
                     </div>
                 </div>
 
@@ -69,7 +67,7 @@
                                 </div>                
                             </div>
                         </div>
-                        <a href="<?php echo route('ramayanam');?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>
+                        <a href="<?php echo route('read/ramayanam');?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>
                     </div>
                 </div>
                 
@@ -87,26 +85,8 @@
     })
     </script>
     <script>
-        active('.home')
-
         truncate('#randomSloka .meaning', 100)
 
-        function truncate(elementSelector, maxLength) {
-            const element = document.querySelector(elementSelector);
-            
-            if (!element) {
-                console.error(`Element with selector "${elementSelector}" not found.`);
-                return;
-            }
-            
-            const content = element.textContent;
-            
-            if (content.length <= maxLength) {
-                return;
-            }
-            const truncatedContent = content.slice(0, maxLength) + '...';
-            element.textContent = truncatedContent;
-        }
     </script>
   </body>
 </html>
