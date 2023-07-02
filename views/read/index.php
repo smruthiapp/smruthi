@@ -23,14 +23,14 @@
 <?php view('partials/reading');?>
         
 
-        <div class="">
-            <h2 class="fs-4 text-smruthi mt-5 px-2 float">Bhagavad Gita <a href="<?php echo route('read/gita');?>" class="link-smruthi fs-7 fw-bold text-decoration-none float-end">View All</a></h2>
+        <div class="heading">
+            <h2 class="fs-4 text-smruthi-black mt-5 px-2 float">Bhagavad Gita <a href="<?php echo route('read/gita');?>" class="link-smruthi fs-7 fw-bold text-decoration-none float-end">View All</a></h2>
             
         </div>
         
         <div class="owl-carousel owl-theme mb-5 px-2" id="gita">
 
-        <?php for ($i=1; $i <= 1; $i++) {             
+        <?php for ($i=1; $i <= 18; $i++) {             
         ?>
             
             <div class="item me-4" id="adhyayam<?php echo $i?>">
@@ -38,7 +38,7 @@
                         <div class="card-body">
                                                 
                             <div class="details">
-                                <div class="title text-smruthi-black fw-bold fs-7">Arjuna Vishada Yoga</div>
+                                <div class="title text-smruthi-black fw-bold fs-7">Adhyayam <?php echo $i?></div>
                                 <div class="text-smruthi fw-bold fs-7">47 Slokas</div>
                             </div>
                             
@@ -47,7 +47,41 @@
                             </div>
                         </div>
                          
-                        <a href="<?php echo route('read/gita/adhyayam/'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
+                        <a href="<?php echo route('read/gita/adhyayam-'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
+                    </div>
+                </div>
+
+        <?php
+        } ?>
+        </div>
+
+    
+
+        <div class="heading">
+            <h2 class="fs-4 text-smruthi-black mt-5 px-2 float">Valmiki Ramayanam <a href="<?php echo route('read/ramayanam');?>" class="link-smruthi fs-7 fw-bold text-decoration-none float-end">View All</a></h2>
+            
+        </div>
+        
+        <div class="owl-carousel owl-theme mb-5 px-2" id="ramayanam">
+
+        <?php for ($i=1; $i <= 6; $i++) {             
+        ?>
+            
+            <div class="item me-4" id="kanda<?php echo $i?>">
+                    <div class="card rounded bg-smruthi-4 border-0 px-2">
+                        <div class="card-body">
+                                                
+                            <div class="details">
+                                <div class="title text-smruthi-black fw-bold fs-7">Kanda <?php echo $i?></div>
+                                <div class="text-smruthi fw-bold fs-7">47 Slokas</div>
+                            </div>
+                            
+                            <div class="illustration mb-3">
+                                <img src="<?php assets('img/ramayanam'.$i.'.svg')?>" alt="illustration">
+                            </div>
+                        </div>
+                         
+                        <a href="<?php echo route('read/ramayanam/kanda-'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
                     </div>
                 </div>
 
@@ -56,7 +90,6 @@
         </div>
 
         
-        
     <script>
     $('.owl-carousel').owlCarousel({
         loop:false,
@@ -64,8 +97,7 @@
         autoWidth: true,
         lazyLoad: true,
         autoplay: true,
-        autoplayHoverPause: true,
-        startPosition: '#adhyayam18'
+        autoplayHoverPause:true,
     })
     </script>
     <script>
