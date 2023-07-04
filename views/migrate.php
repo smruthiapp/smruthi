@@ -4,6 +4,7 @@
 $tables = [
     'users' => 'auth/users.sql',
     'logs' => 'auth/logs.sql',
+    'slokas' => 'slokas/slokas.sql',
     // Add more tables as needed
 ];
 
