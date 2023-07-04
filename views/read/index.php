@@ -100,10 +100,6 @@
         autoplayHoverPause:true,
     })
     </script>
-    <script>
-        truncate('#randomSloka .meaning', 100)
-
-    </script>
         <?php include('views/partials/footer.php') ?>
 
     </div>

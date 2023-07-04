@@ -25,7 +25,6 @@
             <img src="<?php echo assets('img/namaskaram.svg');?>" alt="Namaskaram">
         </div>
 
-        
 <?php view('partials/reading');?>
         
         <h2 class="fs-2 text-smruthi mt-5 px-2">Books</h2>
