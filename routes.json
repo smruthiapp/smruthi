@@ -7,6 +7,18 @@
     "path": "views/read/index.php",
     "pattern": "[a-z]"
   },
+  "kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
+    "path": "views/test.php",
+    "pattern": true
+  },
+  "login": {
+    "path": "views/auth/login.php",
+    "pattern": null
+  },
+  "register": {
+    "path": "views/auth/register.php",
+    "pattern": null
+  },
  "db/migrate" : { 
     "path" : "views/migrate.php"
   },
