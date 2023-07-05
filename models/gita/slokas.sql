@@ -1,0 +1,22 @@
+CREATE TABLE gita (
+  id VARCHAR(10),
+  adhyaya INT,
+  sloka INT,
+  text VARCHAR(500),
+  translation_en TEXT,
+  translation_te TEXT,
+  translation_hi TEXT,
+  translation_ta TEXT,
+  translation_gu TEXT,
+  translation_or TEXT,
+  commentary_en TEXT,
+  commentary_te TEXT,
+  commentary_hi TEXT,
+  commentary_ta TEXT,
+  commentary_gu TEXT,
+  commentary_or TEXT,
+  sort VARCHAR(10),
+  next VARCHAR(10),
+  prev VARCHAR(10),
+  PRIMARY KEY (id)
+);
