@@ -1,4 +1,4 @@
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mb-5">
             <div class="banner card rounded bg-smruthi-4 border-0 ps-2" id="reading">
                 <div class="card-body d-flex justify-content-around">
                     <div class="details">
