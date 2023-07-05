@@ -24,14 +24,14 @@
         "adhyaya": 4,
         "slokas": 42,
         "name": "ज्ञानकर्मसंन्यासयोगः",
-        "transliteration": "Jnana karma sannyasa yoga",
+        "transliteration": "Jnana karma sanyasa yoga",
         "description": "The yoga of renunciation of action with knowledge"
     },
     {
         "adhyaya": 5,
         "slokas": 29,
         "name": "कर्मसंन्यासयोगः",
-        "transliteration": "Karma sannyasa yoga",
+        "transliteration": "Karma sanyasa yoga",
         "description": "The yoga of renunciation of action"
     },
     {
@@ -94,7 +94,7 @@
         "adhyaya": 14,
         "slokas": 27,
         "name": "गुणत्रयविभागयोगः",
-        "transliteration": "Guna traya vibhaga yoga",
+        "transliteration": "Gunatraya vibhaga yoga",
         "description": "The yoga of the division of the three modes"
     },
     {
@@ -108,21 +108,21 @@
         "adhyaya": 16,
         "slokas": 24,
         "name": "दैवासुरसम्पत्विभाग योग",
-        "transliteration": "Daiva asura sampat vibhaga yoga",
+        "transliteration": "Daivasura sampat vibhaga yoga",
         "description": "The yoga of the division of the divine and the demonic qualities"
     },
     {
         "adhyaya": 17,
         "slokas": 28,
         "name": "श्रद्धात्रयविभागयोगः",
-        "transliteration": "Shraddha traya vibhaga yoga",
+        "transliteration": "Shradhatraya vibhaga yoga",
         "description": "The yoga of the division of the three kinds of faith"
     },
     {
         "adhyaya": 18,
         "slokas": 78,
         "name": "मोक्षसंन्यासयोगः",
-        "transliteration": "Moksha sannyasa yoga",
+        "transliteration": "Moksha sanyasa yoga",
         "description": "The yoga of liberation by renunciation"
     }
 ]
