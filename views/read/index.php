@@ -20,7 +20,9 @@
       </nav>
 
     <div class="container" id="read">
-<?php view('partials/reading');?>
+<?php 
+    if(App::getUser()) include('views/partials/reading.php');
+?>
         
 
         <div class="heading">
@@ -47,7 +49,7 @@
                             </div>
                         </div>
                          
-                        <a href="<?php echo route('read/gita/adhyayam-'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
+                        <a href="<?php echo route('read/gita/adhyaya/'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
                     </div>
                 </div>
 
@@ -81,7 +83,7 @@
                             </div>
                         </div>
                          
-                        <a href="<?php echo route('read/ramayanam/kanda-'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
+                        <a href="<?php echo route('read/ramayanam/kanda/'.$i);?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>  
                     </div>
                 </div>
 
