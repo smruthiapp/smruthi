@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <?php 
-    //$config['APP_TITLE'] = "Smruthi website";
+    $config['APP_TITLE'] = "Read - ".$config['APP_NAME'];
 
     require('views/partials/head.php'); 
     ?>
@@ -32,7 +32,9 @@
         
         <div class="owl-carousel owl-theme mb-5 px-2" id="gita">
 
-        <?php for ($i=1; $i <= 18; $i++) {             
+        <?php 
+        $gita = App::getIndex('gita');
+        for ($i=1; $i <= count($gita); $i++) {             
         ?>
             
             <div class="item me-4" id="adhyayam<?php echo $i?>">
@@ -40,12 +42,13 @@
                         <div class="card-body">
                                                 
                             <div class="details">
-                                <div class="title text-smruthi-black fw-bold fs-7">Arjuna Vishada Yogam <?php echo $i?></div>
-                                <div class="text-smruthi fw-bold fs-7">47 Slokas</div>
+                                <div class="title text-smruthi-black fw-bold fs-7"> <span class="text-smruthi"><?php echo $i?>.</span> <?php echo $gita[$i-1]['name']?></div>
+                                <div class="transliteration text-smruthi-grey fw-bold fs-8 text-capitalize"><?php echo $gita[$i-1]['transliteration']?></div>
+                                <div class="text-smruthi fw-bold fs-7"><?php echo $gita[$i-1]['slokas']?> Slokas</div>
                             </div>
                             
                             <div class="illustration mb-3">
-                                <img src="<?php assets('img/gita'.$i.'.svg')?>" alt="illustration">
+                                <img src="<?php assets('img/gita'.$i.'.svg')?>" alt="illustration" class="img-fluid">
                             </div>
                         </div>
                          
@@ -79,7 +82,7 @@
                             </div>
                             
                             <div class="illustration mb-3">
-                                <img src="<?php assets('img/ramayanam'.$i.'.svg')?>" alt="illustration">
+                                <img src="<?php assets('img/ramayanam'.$i.'.svg')?>" alt="illustration" class="img-fluid">
                             </div>
                         </div>
                          
@@ -97,8 +100,7 @@
     $('.owl-carousel').owlCarousel({
         loop:false,
         responsive: false,
-        autoWidth: true,
-        lazyLoad: true,
+        autoWidth: true
     })
     </script>
 
