@@ -45,4 +45,8 @@ class App
             return false;
         }
     }
+
+    public static function getIndex($modelName){
+        return json_decode(file_get_contents('models/'.$modelName.'/index.json'), true);
+    }
 }
