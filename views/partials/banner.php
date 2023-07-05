@@ -15,7 +15,7 @@
                         <img src="<?php echo assets('img/rama1.svg')?>" alt="Sri Rama" class="img-fluid">
                     </div>
                 </div>           
-                <a href="<?php echo route('read/ramayanam/kanda-1-sarga-1-sloka-2');?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>     
+                <a href="<?php echo route('read/ramayanam/kanda/1/sarga/1/sloka/2');?>" class="btn btn-primary stretched-link opacity-0 p-0 m-0" style="height: 1px">Click Here</a>     
             </div>
         </div>
     
