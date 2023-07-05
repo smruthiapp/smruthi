@@ -1,45 +1,41 @@
 {
   "": {
-    "path": "views/index.php",
-    "pattern": null
+    "path": "views/index.php"
   },
   "read": {
-    "path": "views/read/index.php",
-    "pattern": "[a-z]"
+    "path": "views/read/index.php"
+  },
+  "profile": {
+    "path": "views/auth/register.php"
   },
   "api/ramayanam/kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
-    "path": "views/api/ramayanam/sloka.php",
-    "pattern": true
+    "path": "views/api/ramayanam/sloka.php"
   },
   "api/ramayanam/kanda/{kanda}/sarga/{sarga}":{
-    "path": "views/api/ramayanam/sarga.php",
-    "pattern": true
+    "path": "views/api/ramayanam/sarga.php"
   },
   "api/ramayanam/kanda/{kanda}":{
-    "path": "views/api/ramayanam/kanda.php",
-    "pattern": true
+    "path": "views/api/ramayanam/kanda.php"
   },
   "api/gita/adhyaya/{adhyaya}/sloka/{sloka}":{
-    "path": "views/api/gita/sloka.php",
-    "pattern": true
+    "path": "views/api/gita/sloka.php"
   },
   "api/gita/adhyaya/{adhyaya}":{
-    "path": "views/api/gita/adhyaya.php",
-    "pattern": true
+    "path": "views/api/gita/adhyaya.php"
   },
   "login": {
-    "path": "views/auth/login.php",
-    "pattern": null
+    "path": "views/auth/login.php"
   },
   "register": {
-    "path": "views/auth/register.php",
-    "pattern": null
+    "path": "views/auth/register.php"
+  },
+  "logout": {
+    "path": "views/auth/logout.php"
   },
  "db/migrate" : { 
     "path" : "views/migrate.php"
   },
   "api/routes": {
-    "path": "views/api/routes.php",
-    "pattern": null
+    "path": "views/api/routes.php"
   }
 }
