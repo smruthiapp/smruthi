@@ -5,6 +5,9 @@
   "read": {
     "path": "views/read/index.php"
   },
+  "test": {
+    "path": "views/test.php"
+  },
   "profile": {
     "path": "views/auth/register.php"
   },
