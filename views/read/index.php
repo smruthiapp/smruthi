@@ -89,6 +89,7 @@
         } ?>
         </div>
 
+        <?php include('views/partials/footer.php') ?>
         
     <script>
     $('.owl-carousel').owlCarousel({
@@ -96,11 +97,8 @@
         responsive: false,
         autoWidth: true,
         lazyLoad: true,
-        autoplay: true,
-        autoplayHoverPause:true,
     })
     </script>
-        <?php include('views/partials/footer.php') ?>
 
     </div>
   </body>
