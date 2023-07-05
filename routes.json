@@ -7,8 +7,24 @@
     "path": "views/read/index.php",
     "pattern": "[a-z]"
   },
-  "kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
-    "path": "views/test.php",
+  "api/ramayanam/kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
+    "path": "views/api/ramayanam/sloka.php",
+    "pattern": true
+  },
+  "api/ramayanam/kanda/{kanda}/sarga/{sarga}":{
+    "path": "views/api/ramayanam/sarga.php",
+    "pattern": true
+  },
+  "api/ramayanam/kanda/{kanda}":{
+    "path": "views/api/ramayanam/kanda.php",
+    "pattern": true
+  },
+  "api/gita/adhyaya/{adhyaya}/sloka/{sloka}":{
+    "path": "views/api/gita/sloka.php",
+    "pattern": true
+  },
+  "api/gita/adhyaya/{adhyaya}":{
+    "path": "views/api/gita/adhyaya.php",
     "pattern": true
   },
   "login": {
