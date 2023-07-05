@@ -1,0 +1,21 @@
+CREATE TABLE ramayanam (
+    verified VARCHAR(6),
+    assigned_to VARCHAR(255),
+    id VARCHAR(10),
+    kanda INTEGER,
+    sarga INTEGER,
+    sloka INTEGER,
+    description TEXT,
+    text TEXT,
+    meaning TEXT,
+    translation_en TEXT,
+    translation_te TEXT,
+    translation_ta TEXT,
+    translation_hi TEXT,
+    translation_ka TEXT,
+    source TEXT,
+    sort VARCHAR(20),
+    next VARCHAR(10),
+    prev VARCHAR(10),
+    PRIMARY KEY (id)
+);
