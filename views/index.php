@@ -25,9 +25,11 @@
             <img src="<?php echo assets('img/namaskaram.svg');?>" alt="Namaskaram">
         </div>
 
-<?php view('partials/reading');?>
+        <?php 
+            if(App::getUser()) include('views/partials/reading.php');
+        ?>
         
-        <h2 class="fs-2 text-smruthi mt-5 px-2">Books</h2>
+        <h2 class="fs-2 text-smruthi px-2">Books</h2>
         
         <div class="owl-carousel owl-theme mb-5 px-2" id="books">
 
