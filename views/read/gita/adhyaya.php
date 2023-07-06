@@ -7,30 +7,31 @@ controller('Gita');
 $slokas = new Gita;
 $slokas = $slokas->getSlokas($adhyaya['id']);
 
-$config['APP_TITLE'] = "Read Bhagavad Gita -  Adhyaya ".$adhyaya['id']." (".$adhyaya['name'].") | ". $config['APP_NAME'];
+$config['APP_TITLE'] = "Bhagavad Gita - Adhyaya ".$adhyaya['id']." - ".$adhyaya['name']." | ". $config['APP_NAME'];
 
-$config['APP_DESC'] = "Read Bhagavad Gita on our Smruthi App now. With easy to read interface, unravel the philosophy of life and the spiritual essence of the Bhagavad Gita in the most practical and systematic way.";
+$config['APP_DESC'] = "Read Bhagavad Gita on our Smruthi App now. Adhyaya ".$adhyaya['id']." - ".$adhyaya['name']." (".$adhyaya['transliteration']."). ".$adhyaya['description'].".";
 
 require('views/partials/head.php');
 ?>
 
 <body>
     <nav class="navbar mx-auto position-fixed fixed-top shadow-sm">
-        <div class="container-fluid mx-2 mt-4">
-            <a class="float-start link-smruthi-grey text-decoration-none" href="<?php echo route('read/gita') ?>">
-                <h1 class="fs-4 font-smruthi"><i class="bi bi-arrow-left"></i> <span
-                        class="text-smruthi font-smruthi navbar-brand">Bhagavad Gita</span> </h1>
+        <div class="container-fluid mx-2 mt-4 d-block">
+            <a class="link-smruthi-grey text-decoration-none" href="<?php echo route('read/gita') ?>">
+            
+                <span class="fs-4">
+                    <i class="bi bi-arrow-left"></i> 
+                </span>
+                <span class="text-smruthi font-smruthi">Bhagavad Gita</span>
             </a>
         </div>
 
         <div class="container-fluid hideOnScroll mx-2 mt-3 d-block">
             <div class="float-end fs-4 mt-3">
 
-               <a href="#" class="link-smruthi-grey fw-bold me-3"><i class="bi bi-heart"></i></a>
+            <a href="#shareModal" class="link-smruthi-grey fw-bold me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#shareModal" aria-controls="shareModal" aria-label="Share"><i class="bi bi-share"></i></a>
 
-                <a href="#" class="link-smruthi-grey fw-bold me-3"><i class="bi bi-share"></i></a>
-
-                <a href="#" class="link-smruthi-grey fw-bold me-3"><i class="bi bi-three-dots-vertical"></i></a>
+            <?php include('views/partials/share.php');?>
 
             </div>
 
