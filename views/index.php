@@ -20,7 +20,8 @@
       </nav>
 
     <div class="container">
-<?php view('partials/banner');?>
+        <?php view('partials/banner');?>
+        
         <div class="namaskaram d-flex justify-content-center">
             <img src="<?php echo assets('img/namaskaram.svg');?>" alt="Namaskaram">
         </div>
@@ -86,7 +87,7 @@
     })
     </script>
     <script>
-        truncate('#randomSloka .meaning', 100)
+        truncate('#randomSloka .meaning', 150)
 
     </script>
   </body>
