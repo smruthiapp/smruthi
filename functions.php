@@ -488,3 +488,26 @@ function strtoinr($price)
   $formattedPrice = $inr->formatCurrency($price, $currency);
   return substr($formattedPrice, 0, strlen($formattedPrice) - 3);
 }
+
+function removeEmptyLines($string) {
+  // Split the string into an array of lines
+  $lines = explode("\n", $string);
+  
+  // Filter out empty lines
+  $filteredLines = array_filter($lines, function($line) {
+      return trim($line) !== '';
+  });
+  
+  // Join the filtered lines back into a string
+  $filteredString = implode("\n", $filteredLines);
+  
+  return str_replace("\n", "<br>", $filteredString);
+}
+
+function lastTwoLines($string) {
+  $lines = explode("<br>", $string);
+  $lastTwoLines = array_slice($lines, -2);
+  $result = implode("<br>", $lastTwoLines);
+  
+  return $result;
+}
