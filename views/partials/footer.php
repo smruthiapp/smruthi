@@ -1,18 +1,18 @@
 <!-- Bottom Navbar -->
 <div class="navbar navbar-fixed-bottom container-fluid">
-        <a href="<?php echo route('')?>"  class="home">
+        <a href="<?php echo route('')?>"  class="home fs-8">
             <i class="temple-icon"><img src="<?php assets('img/temple.svg');?>" alt="Temple Icon" class="img-fluid"></i>
             Home
         </a>
-        <a href="<?php echo route('read')?>"  class="read">
+        <a href="<?php echo route('read')?>"  class="read fs-8">
             <i class="read-icon"><img src="<?php assets('img/read.svg');?>" alt="Read Icon" class="img-fluid"></i>
             Read
         </a>
-        <a href="<?php echo route('saved')?>"  class="saved">
+        <a href="<?php echo route('saved')?>"  class="saved fs-8">
             <i class="saved-icon"><img src="<?php assets('img/saved.svg');?>" alt="Saved Icon" class="img-fluid"></i>
             Saved
         </a>
-        <a href="<?php echo route('profile')?>"  class="profile">
+        <a href="<?php echo route('profile')?>"  class="profile fs-8">
             <i class="saved-icon"><img src="<?php assets('img/profile.svg');?>" alt="Saved Icon" class="img-fluid"></i>
             Profile
         </a>
@@ -67,3 +67,29 @@
             element.textContent = truncatedContent;
         }
     </script>
+
+    
+<script>
+let prevScrollPos = window.pageYOffset;
+const hideElements = document.querySelectorAll(".hideOnScroll");
+
+window.addEventListener("scroll", function() {
+  const currentScrollPos = window.pageYOffset;
+  
+  if (prevScrollPos > currentScrollPos) {
+    // Scrolling up
+    hideElements.forEach(element => {
+      element.classList.remove('d-none')
+    });
+  } else {
+    // Scrolling down
+    hideElements.forEach(element => {
+      element.classList.add('d-none')
+    });
+  }
+  
+  prevScrollPos = currentScrollPos;
+});
+
+
+</script>
