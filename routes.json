@@ -11,6 +11,18 @@
   "profile": {
     "path": "views/auth/register.php"
   },
+
+  "read/gita":{
+    "path" : "views/read/gita/index.php"
+  },
+
+  "read/gita/adhyaya/{adhyaya}":{
+    "path" : "views/read/gita/adhyaya.php"
+  },
+
+
+  
+
   "api/ramayanam/kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
     "path": "views/api/ramayanam/sloka.php"
   },
@@ -20,6 +32,8 @@
   "api/ramayanam/kanda/{kanda}":{
     "path": "views/api/ramayanam/kanda.php"
   },
+
+
   "api/gita/adhyaya/{adhyaya}/sloka/{sloka}":{
     "path": "views/api/gita/sloka.php"
   },
