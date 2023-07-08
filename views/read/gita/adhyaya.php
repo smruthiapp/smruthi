@@ -53,7 +53,7 @@ require('views/partials/head.php');
                 foreach ($slokas as $sloka) {
 
                     ?>
-                    <a href="<?php echo route('read/gita/sarga/'.explode(".", $sloka['id'])[0].'/sloka/' . explode(".", $sloka['id'])[1]) ?>"
+                    <a href="<?php echo route('read/gita/adhyaya/'.explode(".", $sloka['id'])[0].'/sloka/' . explode(".", $sloka['id'])[1]) ?>"
                         class="text-decoration-none mb-3">
                         <li class="list-group-item d-flex align-items-center border-0 border-bottom align-middle">
 
