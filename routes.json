@@ -20,6 +20,10 @@
     "path" : "views/read/gita/adhyaya.php"
   },
 
+  "read/gita/adhyaya/{adhyaya}/sloka/{sloka}":{
+    "path" : "views/read/gita/sloka.php"
+  },
+
 
   
 
