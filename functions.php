@@ -511,3 +511,23 @@ function lastTwoLines($string) {
   
   return $result;
 }
+
+function csv_decode($file) {
+  $rows = array();
+
+  if (($handle = fopen($file, "r")) !== false) {
+      $header = fgetcsv($handle);
+
+      while (($data = fgetcsv($handle)) !== false) {
+          $row = array();
+          foreach ($header as $index => $column) {
+              $row[$column] = $data[$index];
+          }
+          $rows[] = $row;
+      }
+
+      fclose($handle);
+  }
+
+  return $rows;
+}
