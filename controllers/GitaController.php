@@ -21,4 +21,5 @@ class Gita{
         DB::close();
         return $query;
     }
+
 }
