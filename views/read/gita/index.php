@@ -97,12 +97,6 @@ require('views/partials/head.php');
 
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var navHeight = document.querySelector('.fixed-top').offsetHeight
-            document.querySelector('.container').style.paddingTop = navHeight + 'px'
-        })
-    </script>
 </body>
 
 </html>
