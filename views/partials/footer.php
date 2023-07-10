@@ -70,26 +70,24 @@
 
     
 <script>
-let prevScrollPos = window.pageYOffset;
-const hideElements = document.querySelectorAll(".hideOnScroll");
+    let prevScrollPos = window.pageYOffset;
+    const hideElements = document.querySelectorAll(".hideOnScroll");
 
-window.addEventListener("scroll", function() {
-  const currentScrollPos = window.pageYOffset;
-  
-  if (prevScrollPos > currentScrollPos) {
-    // Scrolling up
-    hideElements.forEach(element => {
-      element.classList.remove('d-none')
+    window.addEventListener("scroll", function() {
+        const currentScrollPos = window.pageYOffset;
+        const isScrollingUp = prevScrollPos < currentScrollPos;
+
+        hideElements.forEach(element => {
+            element.classList.toggle('d-none', isScrollingUp);
+        });
+
+        prevScrollPos = currentScrollPos;
     });
-  } else {
-    // Scrolling down
-    hideElements.forEach(element => {
-      element.classList.add('d-none')
-    });
-  }
-  
-  prevScrollPos = currentScrollPos;
-});
+</script>
 
-
+<script>        
+document.addEventListener('DOMContentLoaded', function() {
+    var navHeight = document.querySelector('.fixed-top').offsetHeight
+    document.querySelector('.container').style.paddingTop = navHeight + 'px'
+})
 </script>
