@@ -471,7 +471,7 @@ Border Colors
     right: 0;
     bottom:8vh;
     left: 0;
-    z-index: 2 !important;
+    z-index: 0 !important;
     max-width: 540px;
     background-color: var(--smruthi-white); 
     padding-top: 0;
