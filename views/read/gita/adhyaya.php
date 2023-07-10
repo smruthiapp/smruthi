@@ -85,18 +85,10 @@ require('views/partials/head.php');
             </ul>
         </div>
 
-
-
         <?php include('views/partials/footer.php') ?>
 
 
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var navHeight = document.querySelector('.fixed-top').offsetHeight
-            document.querySelector('.container').style.paddingTop = navHeight + 'px'
-        })
-    </script>
 </body>
 
 </html>
