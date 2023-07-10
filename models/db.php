@@ -29,7 +29,7 @@ class DB
      * @return bool True if the insert operation was successful, false otherwise.
      */
     public static function insert($table, $data)
-    {
+    {   
         $columns = implode(", ", array_keys($data));
         $placeholders = ":" . implode(", :", array_keys($data));
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
