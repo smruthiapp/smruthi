@@ -7,6 +7,8 @@ controller('Gita');
 $gita = new Gita;
 $sloka = $gita->getSloka($_REQUEST['adhyaya'], $_REQUEST['sloka'])[0];
 
+$next = explode('.', $sloka['next']);
+$prev = explode('.', $sloka['prev']);
 
 $config['APP_TITLE'] = "Bhagavad Gita - Adhyaya ".$sloka['adhyaya'].", Sloka ".$sloka['sloka']." | ". $config['APP_NAME'];
 
@@ -111,12 +113,17 @@ require('views/partials/head.php');
         </div>
 
         </div>
-        
-        <div class="bg-smruthi-4 toolbar mx-auto pb-2 hideOnScroll d-flex justify-content-center align-items-center px-2 py-2">
-        <a href="<?php echo route('read/gita/adhyaya/'.$sloka['prev'][0].'/sloka/'.$sloka['prev'][2])?>" class="fs-7 mx-2" <?php echo (empty($sloka['prev'])) ? 'disabled' : '';?>>Prev</a>
-        <a href="#" class="bi bi-play-circle-fill text-smruthi mx-2" id="play"></a>
-        <a href="<?php echo route('read/gita/adhyaya/'.$sloka['next'][0].'/sloka/'.$sloka['next'][2])?>" class="fs-7 mx-2" <?php echo (empty($sloka['next'])) ? 'disabled' : '';?>>Next</a>
-      </div>
+
+        <div class="bg-smruthi-4 toolbar mx-auto pb-2 hideOnScroll d-flex justify-content-between align-items-center px-2 py-2">
+    <a href="#" class="bi bi-gear-fill link-smruthi-grey fs-4 mx-2 order-1" id="settings"></a>
+    <div class="d-flex justify-content-center align-items-center order-3">
+    <a href="<?php echo route('read/gita/adhyaya/'.$prev[0].'/sloka/'.$prev[1])?>" class="link-smruthi mx-2" <?php echo (empty($sloka['prev'])) ? 'disabled' : '';?>><i class="bi bi-caret-left-fill fs-4"></i></a>
+    <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
+    <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2" <?php echo (empty($sloka['next'])) ? 'disabled' : '';?>><i class="bi bi-caret-right-fill fs-4"></i></a>
+    </div>
+    <a href="#" class="bi bi-compass link-smruthi-grey fs-4 mx-2 order-4" id="navigate"></a>
+</div>
+
 
 
 
