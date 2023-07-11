@@ -7,8 +7,10 @@ controller('Gita');
 $gita = new Gita;
 $sloka = $gita->getSloka($_REQUEST['adhyaya'], $_REQUEST['sloka'])[0];
 
-$next = explode('.', $sloka['next']);
-$prev = explode('.', $sloka['prev']);
+$slokaCount = $adhyaya['slokas'];
+$prev =  ($sloka['sloka'] == 1) ? [0 => ($sloka['adhyaya'] - 1), 1 => $adhyayas[$sloka['adhyaya']-2]['slokas']] : [0 => $sloka['adhyaya'], 1 => $sloka['sloka'] - 1 ];
+$next =  ($sloka['sloka'] >= $slokaCount) ? [0 => ($sloka['adhyaya'] + 1), 1 => 1] : [0 => $sloka['adhyaya'], 1 => $sloka['sloka'] +1 ];
+
 
 $config['APP_TITLE'] = "Bhagavad Gita - Adhyaya ".$sloka['adhyaya'].", Sloka ".$sloka['sloka']." | ". $config['APP_NAME'];
 
