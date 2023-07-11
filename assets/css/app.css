@@ -63,6 +63,11 @@ body{
     color: var(--smruthi-primary);
 }
 
+
+.accordion-button:hover {
+    z-index: 0 !important;
+}
+
 .accordion-button:not(.collapsed) {
     background-color: var(--smruthi-secondary-2);
     color: var(--smruthi-primary);
