@@ -43,6 +43,7 @@ require('views/partials/head.php');
 
                 <?php include('views/partials/share.php');?>
                 
+                
             </div>
 
             <h2 class="text-smruthi fw-bold fs-4"><?php echo $adhyaya['name'];?></h2> 
@@ -111,7 +112,14 @@ require('views/partials/head.php');
         </div>
 
         <div class="bg-smruthi-4 toolbar mx-auto pb-2 hideOnScroll d-flex justify-content-between align-items-center px-2 py-2">
-    <a href="#" class="bi bi-gear-fill link-smruthi-grey fs-4 mx-2 order-1" id="settings"></a>
+
+    
+    <a href="#" class="bi bi-gear-fill link-smruthi-grey fs-4 mx-2 order-1" id="settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#settingsModal" aria-controls="settingsModal" aria-label="settings"></a>
+
+    
+    <?php include('views/partials/settings.php');?>
+
+    
     <div class="d-flex justify-content-center align-items-center order-3">
     <a href="<?php echo route('read/gita/adhyaya/'.$prev[0].'/sloka/'.$prev[1])?>" class="link-smruthi mx-2" <?php echo (empty($sloka['prev'])) ? 'disabled' : '';?>><i class="bi bi-caret-left-fill fs-4"></i></a>
     <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
