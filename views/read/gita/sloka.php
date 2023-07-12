@@ -142,6 +142,12 @@ require('views/partials/head.php');
         sloka.commentary.te = `<?php echo $sloka['commentary_te'];?>`
         sloka.commentary.ta = `<?php echo $sloka['commentary_ta'];?>`
         sloka.commentary.hi = `<?php echo $sloka['commentary_hi'];?>`
+        sloka.commentary.gu = `<?php echo $sloka['commentary_gu'];?>`
+        sloka.commentary.or = `<?php echo $sloka['commentary_or'];?>`
+
+        text = document.querySelector('#text')
+        translation = document.querySelector('#translation')
+        commentary = document.querySelector('#commentary')
 
     </script>
 
