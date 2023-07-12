@@ -119,13 +119,14 @@ require('views/partials/head.php');
     
     <?php include('views/partials/settings.php');?>
 
-    
+
     <div class="d-flex justify-content-center align-items-center order-3">
     <a href="<?php echo route('read/gita/adhyaya/'.$prev[0].'/sloka/'.$prev[1])?>" class="link-smruthi mx-2" <?php echo (empty($sloka['prev'])) ? 'disabled' : '';?>><i class="bi bi-caret-left-fill fs-4"></i></a>
     <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
     <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2" <?php echo (empty($sloka['next'])) ? 'disabled' : '';?>><i class="bi bi-caret-right-fill fs-4"></i></a>
     </div>
-    <a href="#" class="bi bi-compass link-smruthi-grey fs-4 mx-2 order-4" id="navigate"></a>
+    <a href="#" class="bi bi-compass link-smruthi-grey fs-4 mx-2 order-4" id="navigate" type="button" data-bs-toggle="offcanvas" data-bs-target="#navigateModal" aria-controls="navigateModal" aria-label="navigate"></a>
+    <?php include('views/partials/navigate.php');?>
 </div>
 
 
