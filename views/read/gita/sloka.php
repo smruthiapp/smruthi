@@ -71,9 +71,7 @@ require('views/partials/head.php');
             </div>
 
             <div class="text my-2">
-                <strong class="fs-5">
-                    <?php echo removeEmptyLines($sloka['text']);?>
-                </strong>
+                <strong class="fs-5" id="text"><?php echo removeEmptyLines($sloka['text']);?></strong>
             </div>
 
             <div class="design">
@@ -93,9 +91,7 @@ require('views/partials/head.php');
                 </button>
                 </h2>
                 <div id="translation" class="accordion-collapse collapse show">
-                <div class="accordion-body">
-                    <?php echo removeEmptyLines($sloka['translation_en'])?>
-                </div>
+                <div class="accordion-body"><?php echo removeEmptyLines($sloka['translation_en'])?></div>
                 </div>
             </div>
         
@@ -106,9 +102,7 @@ require('views/partials/head.php');
                 </button>
                 </h2>
                 <div id="commentary" class="accordion-collapse collapse">
-                <div class="accordion-body">
-                    <?php echo removeEmptyLines($sloka['commentary_en'])?>
-                </div>
+                <div class="accordion-body"><?php echo removeEmptyLines($sloka['commentary_en'])?></div>
                 </div>
             </div>
         
@@ -131,6 +125,13 @@ require('views/partials/head.php');
 
         <?php include('views/partials/footer.php') ?>
     </div>
+
+    <script>
+        let sloka = []
+        sloka.id = "<?php echo $sloka['id'];?>"
+        sloka.text = `<?php echo $sloka['text'];?>`
+
+    </script>
 
 </body>
 
