@@ -138,6 +138,10 @@ require('views/partials/head.php');
         sloka.translation.gu = `<?php echo $sloka['translation_gu'];?>`
         sloka.translation.or = `<?php echo $sloka['translation_or'];?>`
         sloka.commentary = []
+        sloka.commentary.en = `<?php echo $sloka['commentary_en'];?>`
+        sloka.commentary.te = `<?php echo $sloka['commentary_te'];?>`
+        sloka.commentary.ta = `<?php echo $sloka['commentary_ta'];?>`
+        sloka.commentary.hi = `<?php echo $sloka['commentary_hi'];?>`
 
     </script>
 
