@@ -134,6 +134,9 @@ require('views/partials/head.php');
         sloka.translation.en = `<?php echo $sloka['translation_en'];?>`
         sloka.translation.te = `<?php echo $sloka['translation_te'];?>`
         sloka.translation.ta = `<?php echo $sloka['translation_ta'];?>`
+        sloka.translation.hi = `<?php echo $sloka['translation_hi'];?>`
+        sloka.translation.gu = `<?php echo $sloka['translation_gu'];?>`
+        sloka.translation.or = `<?php echo $sloka['translation_or'];?>`
 
     </script>
 
