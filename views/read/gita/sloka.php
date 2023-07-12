@@ -130,6 +130,8 @@ require('views/partials/head.php');
         let sloka = []
         sloka.id = "<?php echo $sloka['id'];?>"
         sloka.text = `<?php echo $sloka['text'];?>`
+        sloka.translation = []
+        sloka.translation.en = `<?php echo $sloka['translation_en'];?>`
 
     </script>
 
