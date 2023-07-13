@@ -18,7 +18,7 @@
                 <option value="gu">Gujarati</option>
                 <option value="or">Oriya</option>
             </select>
-            <label for="languageDropdown">Select Language</label>
+            <label for="languageDropdown">Language</label>
             </div>
         </div>
 
