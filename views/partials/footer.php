@@ -20,27 +20,27 @@
 </div>
 
     <script>
-        const home =document.querySelector('.home')
-        const read =document.querySelector('.read')
-        const saved =document.querySelector('.saved')
-        const profile =document.querySelector('.profile')
+        const home = document.querySelector('.home')
+        const read = document.querySelector('.read')
+        const saved = document.querySelector('.saved')
+        const profile = document.querySelector('.profile')
 
         path = window.location.pathname
 // Extract the path from the URL
-        var path = path.split("/").filter(Boolean)[1];
+        var path = path.split("/").filter(Boolean)[1]
         switch (path) {
         case "read":
             active('.read')
-            break;
+            break
         case "saved":
             active('.saved')
-            break;
+            break
         case "profile":
             active('.profile')
-            break;
+            break
         default:
             active('.home')
-            break;
+            break
         }
 
 
@@ -51,38 +51,38 @@
         }
         
         function truncate(elementSelector, maxLength) {
-            const element = document.querySelector(elementSelector);
+            const element = document.querySelector(elementSelector)
             
             if (!element) {
-                console.error(`Element with selector "${elementSelector}" not found.`);
-                return;
+                console.error(`Element with selector "${elementSelector}" not found.`)
+                return
             }
             
-            const content = element.textContent;
+            const content = element.textContent
             
             if (content.length <= maxLength) {
-                return;
+                return
             }
-            const truncatedContent = content.slice(0, maxLength) + '...';
-            element.textContent = truncatedContent;
+            const truncatedContent = content.slice(0, maxLength) + '...'
+            element.textContent = truncatedContent
         }
     </script>
 
     
 <script>
-    let prevScrollPos = window.pageYOffset;
-    const hideElements = document.querySelectorAll(".hideOnScroll");
+    let prevScrollPos = window.pageYOffset
+    const hideElements = document.querySelectorAll(".hideOnScroll")
 
     window.addEventListener("scroll", function() {
-        const currentScrollPos = window.pageYOffset;
-        const isScrollingUp = prevScrollPos < currentScrollPos;
+        const currentScrollPos = window.pageYOffset
+        const isScrollingUp = prevScrollPos < currentScrollPos
 
         hideElements.forEach(element => {
-            element.classList.toggle('d-none', isScrollingUp);
-        });
+            element.classList.toggle('d-none', isScrollingUp)
+        })
 
-        prevScrollPos = currentScrollPos;
-    });
+        prevScrollPos = currentScrollPos
+    })
 </script>
 
 <script>        
