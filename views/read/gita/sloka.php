@@ -196,10 +196,21 @@ require('views/partials/head.php');
     selectedLanguage = languageDropdown.value;
     setCookie("selectedLanguage", selectedLanguage, 365); // Store the selected language in a cookie for 365 days
     updateContent();
+    closeSettingsModal()
     });
 
     // Call the function initially to populate the content with the default or stored language
     updateContent();
+
+</script>
+<script>
+    // Get the settings modal element
+const settingsModal = document.querySelector("#settingsModal");
+
+// Function to close the settings modal
+function closeSettingsModal() {
+    document.querySelector('#settingsModal .btn-close').click()
+}
 
 </script>
 </body>
