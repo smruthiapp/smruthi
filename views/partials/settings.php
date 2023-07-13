@@ -7,9 +7,20 @@
     </div>
     <div class="offcanvas-body">
 
-        <h4 class="text-center fw-bold">
-            Language Settings
-        </h4>
-
+        <div class="text-center fw-bold form-row">
+            <div class="form-floating col-6">
+            <!-- Language dropdown -->
+            <select id="languageDropdown" class="form-select">
+                <option value="en">English</option>
+                <option value="te">Telugu</option>
+                <option value="ta">Tamil</option>
+                <option value="hi">Hindi</option>
+                <option value="gu">Gujarati</option>
+                <option value="or">Oriya</option>
+            </select>
+            <label for="languageDropdown">Select Language</label>
+            </div>
         </div>
+
+    </div>
 </div>
