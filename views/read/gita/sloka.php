@@ -87,18 +87,18 @@ require('views/partials/head.php');
 
             <div class="accordion-item border-0 my-3">
                 <h2 class="accordion-header">
-                <button class="accordion-button rounded-pill fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#translation" aria-expanded="true" aria-controls="translation">
+                <button class="accordion-button rounded-pill mb-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#translation" aria-expanded="true" aria-controls="translation">
                     Translation
                 </button>
                 </h2>
                 <div id="translation" class="accordion-collapse collapse show">
-                <div class="accordion-body"><?php echo removeEmptyLines($sloka['translation_en'])?></div>
+                <div class="accordion-body pt-2"><?php echo removeEmptyLines($sloka['translation_en'])?></div>
                 </div>
             </div>
         
             <div class="accordion-item border-0 my-3">
                 <h2 class="accordion-header">
-                <button class="accordion-button collapsed rounded-pill fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#commentary" aria-expanded="true" aria-controls="commentary">
+                <button class="accordion-button collapsed rounded-pill mb-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#commentary" aria-expanded="true" aria-controls="commentary">
                     Commentary
                 </button>
                 </h2>
@@ -140,26 +140,68 @@ require('views/partials/head.php');
         sloka.id = "<?php echo $sloka['id'];?>"
         sloka.text = `<?php echo $sloka['text'];?>`
         sloka.translation = []
-        sloka.translation.en = `<?php echo $sloka['translation_en'];?>`
-        sloka.translation.te = `<?php echo $sloka['translation_te'];?>`
-        sloka.translation.ta = `<?php echo $sloka['translation_ta'];?>`
-        sloka.translation.hi = `<?php echo $sloka['translation_hi'];?>`
-        sloka.translation.gu = `<?php echo $sloka['translation_gu'];?>`
-        sloka.translation.or = `<?php echo $sloka['translation_or'];?>`
+        sloka.translation.en = `<?php echo removeEmptyLines($sloka['translation_en']);?>`
+        sloka.translation.te = `<?php echo removeEmptyLines($sloka['translation_te']);?>`
+        sloka.translation.ta = `<?php echo removeEmptyLines($sloka['translation_ta']);?>`
+        sloka.translation.hi = `<?php echo removeEmptyLines($sloka['translation_hi']);?>`
+        sloka.translation.gu = `<?php echo removeEmptyLines($sloka['translation_gu']);?>`
+        sloka.translation.or = `<?php echo removeEmptyLines($sloka['translation_or']);?>`
         sloka.commentary = []
-        sloka.commentary.en = `<?php echo $sloka['commentary_en'];?>`
-        sloka.commentary.te = `<?php echo $sloka['commentary_te'];?>`
-        sloka.commentary.ta = `<?php echo $sloka['commentary_ta'];?>`
-        sloka.commentary.hi = `<?php echo $sloka['commentary_hi'];?>`
-        sloka.commentary.gu = `<?php echo $sloka['commentary_gu'];?>`
-        sloka.commentary.or = `<?php echo $sloka['commentary_or'];?>`
+        sloka.commentary.en = `<?php echo removeEmptyLines($sloka['commentary_en']);?>`
+        sloka.commentary.te = `<?php echo removeEmptyLines($sloka['commentary_te']);?>`
+        sloka.commentary.ta = `<?php echo removeEmptyLines($sloka['commentary_ta']);?>`
+        sloka.commentary.hi = `<?php echo removeEmptyLines($sloka['commentary_hi']);?>`
+        sloka.commentary.gu = `<?php echo removeEmptyLines($sloka['commentary_gu']);?>`
+        sloka.commentary.or = `<?php echo removeEmptyLines($sloka['commentary_or']);?>`
 
         text = document.querySelector('#text')
         translation = document.querySelector('#translation')
         commentary = document.querySelector('#commentary')
-
     </script>
 
+    
+<script>
+    // Function to set a cookie with a given name, value, and expiration date
+    function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/`;
+    }
+
+    // Function to get a cookie value by name
+    function getCookie(name) {
+    const cookieArr = document.cookie.split("; ");
+    for (let i = 0; i < cookieArr.length; i++) {
+        const cookiePair = cookieArr[i].split("=");
+        if (cookiePair[0] === name) {
+        return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+    }
+
+    // Set the initial language selection from the stored cookie value
+    let selectedLanguage = getCookie("selectedLanguage") || "en";
+
+    // Function to update the content based on the selected language
+    function updateContent() {
+    translation.innerHTML = sloka.translation[selectedLanguage];
+    commentary.innerHTML = sloka.commentary[selectedLanguage];
+    }
+
+    // Update the language dropdown with the selected language and add event listener
+    const languageDropdown = document.querySelector("#languageDropdown");
+    languageDropdown.value = selectedLanguage;
+    languageDropdown.addEventListener("change", function () {
+    selectedLanguage = languageDropdown.value;
+    setCookie("selectedLanguage", selectedLanguage, 365); // Store the selected language in a cookie for 365 days
+    updateContent();
+    });
+
+    // Call the function initially to populate the content with the default or stored language
+    updateContent();
+
+</script>
 </body>
 
 </html>
