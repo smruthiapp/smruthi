@@ -37,11 +37,13 @@ require('views/partials/head.php');
 
                 <a href="#saveModal" class="link-smruthi-grey fw-bold me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#saveModal" aria-controls="saveModal" aria-label="Share"><i class="bi bi-heart"></i></a>
 
-                <?php include('views/partials/save.php');?>
 
                 <a href="#shareModal" class="link-smruthi-grey fw-bold me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#shareModal" aria-controls="shareModal" aria-label="Share"><i class="bi bi-share"></i></a>
 
                 <?php include('views/partials/share.php');?>
+                <?php include('views/partials/settings.php');?>
+                <?php include('views/partials/save.php');?>
+                <?php include('views/partials/navigate.php');?>
                 
                 
             </div>
@@ -117,7 +119,6 @@ require('views/partials/head.php');
     <a href="#" class="bi bi-gear-fill link-smruthi-grey fs-4 mx-2 order-1" id="settings" type="button" data-bs-toggle="offcanvas" data-bs-target="#settingsModal" aria-controls="settingsModal" aria-label="settings"></a>
 
     
-    <?php include('views/partials/settings.php');?>
 
 
     <div class="d-flex justify-content-center align-items-center order-3">
@@ -126,7 +127,6 @@ require('views/partials/head.php');
     <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2" <?php echo (empty($sloka['next'])) ? 'disabled' : '';?>><i class="bi bi-caret-right-fill fs-4"></i></a>
     </div>
     <a href="#" class="bi bi-compass link-smruthi-grey fs-4 mx-2 order-4" id="navigate" type="button" data-bs-toggle="offcanvas" data-bs-target="#navigateModal" aria-controls="navigateModal" aria-label="navigate"></a>
-    <?php include('views/partials/navigate.php');?>
 </div>
 
 
@@ -134,11 +134,11 @@ require('views/partials/head.php');
 
         <?php include('views/partials/footer.php') ?>
     </div>
-
+<script src="<?php assets('sanscript/sanscript.js')?>"></script>
     <script>
         let sloka = []
         sloka.id = "<?php echo $sloka['id'];?>"
-        sloka.text = `<?php echo $sloka['text'];?>`
+        sloka.text = `<?php echo removeEmptyLines($sloka['text']);?>`
         sloka.translation = []
         sloka.translation.en = `<?php echo removeEmptyLines($sloka['translation_en']);?>`
         sloka.translation.te = `<?php echo removeEmptyLines($sloka['translation_te']);?>`
@@ -182,9 +182,11 @@ require('views/partials/head.php');
 
     // Set the initial language selection from the stored cookie value
     let selectedLanguage = getCookie("selectedLanguage") || "en";
+    let selectedScript = getCookie("selectedScript") || "devanagari";
 
     // Function to update the content based on the selected language
     function updateContent() {
+    text.innerHTML = Sanscript.t(sloka.text, 'devanagari', selectedScript);
     translation.innerHTML = sloka.translation[selectedLanguage];
     commentary.innerHTML = sloka.commentary[selectedLanguage];
     }
@@ -195,6 +197,15 @@ require('views/partials/head.php');
     languageDropdown.addEventListener("change", function () {
     selectedLanguage = languageDropdown.value;
     setCookie("selectedLanguage", selectedLanguage, 365); // Store the selected language in a cookie for 365 days
+    updateContent();
+    closeSettingsModal()
+    });
+
+    const scriptDropdown = document.querySelector("#scriptDropdown");
+    scriptDropdown.value = selectedScript;
+    scriptDropdown.addEventListener("change", function () {
+    selectedScript = scriptDropdown.value;
+    setCookie("selectedScript", selectedScript, 365); // Store the selected language in a cookie for 365 days
     updateContent();
     closeSettingsModal()
     });
