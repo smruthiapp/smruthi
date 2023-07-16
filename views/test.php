@@ -21,7 +21,7 @@
     </select>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@localjs/localjs@1.2.0/localjs.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@localjs/localjs@latest/localjs.min.js"></script>
 
   <script>
     var translations = {
