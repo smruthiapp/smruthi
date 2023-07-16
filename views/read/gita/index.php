@@ -95,7 +95,7 @@ require('views/partials/head.php');
         <?php include('views/partials/footer.php') ?>
 
 
-    </div>
+</div>
 
 </body>
 
