@@ -7,7 +7,24 @@
     </div>
     <div class="offcanvas-body">
 
-        <div class="text-center row">
+
+        <div class="row mb-4">
+            <div class="col-6">
+                <h6 class="fs-7">Sloka Font Size</h6>
+                <div class="btn-group" role="group" aria-label="Font Size">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeTextFontSize('text', 1)">Aa-</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeTextFontSize('text', -1)">Aa+</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <h6 class="fs-7">Text Font Size</h6>
+                <div class="btn-group" role="group" aria-label="Font Size">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeOtherFontSize('text', 1)">Aa-</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeOtherFontSize('text', -1)">Aa+</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center row my-5">
             <div class="form-floating col-6">
             <!-- Language dropdown -->
             <select id="languageDropdown" class="form-select">
