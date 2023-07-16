@@ -13,7 +13,7 @@
             Saved
         </a>
         <a href="<?php echo route('profile')?>"  class="profile fs-8">
-            <i class="saved-icon"><img src="<?php assets('img/profile.svg');?>" alt="Saved Icon" class="img-fluid"></i>
+            <i class="saved-icon"><img src="<?php assets('img/profile.svg');?>" alt="Profile Icon" class="img-fluid"></i>
             Profile
         </a>
     
