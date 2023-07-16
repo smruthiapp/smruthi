@@ -317,6 +317,12 @@ Border Colors
     border-color: var(--smruthi-secondary-4);
 }
 
+.form-select:focus,
+.form-select:active{
+    outline: none !important;
+    box-shadow: 0 0 0 0.25rem var(--smruthi-secondary-4) !important;
+    border-color: var(--smruthi-primary) !important;
+}
 
 .hideOnScroll{
     transition: .4s ease-in-out;
@@ -338,7 +344,7 @@ Border Colors
     line-height: 1.1;
 }
 .fs-7{
-    font-size: .875rem;
+    font-size: .975rem;
 }
 .fs-8{
     font-size: .75rem;
@@ -492,6 +498,22 @@ a[disabled]{
 #play{
     font-size: 54px;
 }
+
+#settings img,
+#navigate img{
+    height: 24px !important;
+    width: 24px !important;
+}
+
+#next img,
+#prev img{
+    height: 20px !important;
+    width: 20px !important;
+}
+
+
+
+
 /* small devices (phones) */
 @media (max-width: 440px) {
 /* CSS rules for small devices */
