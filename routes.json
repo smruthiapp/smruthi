@@ -25,7 +25,22 @@
   },
 
 
+  "read/ramayanam":{
+    "path" : "views/read/ramayanam/index.php"
+  },
+
+  "read/ramayanam/kanda/{kanda}":{
+    "path" : "views/read/ramayanam/index.php"
+  },
+
+
+  "read/ramayanam/kanda/{kanda}/sarga/{sarga}":{
+    "path" : "views/read/ramayanam/index.php"
+  },
   
+  "read/ramayanam/kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
+    "path" : "views/read/ramayanam/index.php"
+  },
 
   "api/ramayanam/kanda/{kanda}/sarga/{sarga}/sloka/{sloka}":{
     "path": "views/api/ramayanam/sloka.php"
