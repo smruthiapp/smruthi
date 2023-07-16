@@ -43,9 +43,9 @@
                                                 
                             <div class="details">
                                 <div class="title text-smruthi-black fw-bold text-nowrap">Srimad Bhagavad Gita</div>
-                                <div class="text-smruthi-black fs-7">32% Complete</div>
-                                <div class="progress bg-smruthi-2" role="progressbar" aria-label="Progress Bar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar bg-smruthi" style="width: 32%"></div>
+                                <div class="text-smruthi-black fs-7">0% Complete</div>
+                                <div class="progress bg-smruthi-2" role="progressbar" aria-label="Progress Bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-smruthi" style="width: 0%"></div>
                                 </div>                
                             </div>
                         </div>
@@ -63,9 +63,9 @@
                                                 
                             <div class="details">
                                 <div class="title text-smruthi-black fw-bold text-nowrap">Valmiki Ramayanam</div>
-                                <div class="text-smruthi-black fs-7">6% Complete</div>
-                                <div class="progress bg-smruthi-2" role="progressbar" aria-label="Progress Bar" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar bg-smruthi" style="width: 6%"></div>
+                                <div class="text-smruthi-black fs-7">0% Complete</div>
+                                <div class="progress bg-smruthi-2" role="progressbar" aria-label="Progress Bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar bg-smruthi" style="width: 0%"></div>
                                 </div>                
                             </div>
                         </div>
