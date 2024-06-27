@@ -1,7 +1,13 @@
 <?php
 /**
- * GraphenePHP Database Class
+ * GraphenePHP DB Class
+ *
+ * This class contains all Database CRUD functions
+ *
+ * @package GraphenePHP
+ * @version 2.0.0
  */
+
 class DB
 {
     private static $connection;
@@ -29,7 +35,7 @@ class DB
      * @return bool True if the insert operation was successful, false otherwise.
      */
     public static function insert($table, $data)
-    {   
+    {
         $columns = implode(", ", array_keys($data));
         $placeholders = ":" . implode(", :", array_keys($data));
         $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
@@ -56,7 +62,7 @@ class DB
     {
         $set = "";
         foreach ($data as $column => $value) {
-            $set .= "$column = '$value', ";
+            if($value != null) $set .= "$column = '$value', ";
         }
         $set = rtrim($set, ", ");
         $query = "UPDATE $table SET $set WHERE $where";
