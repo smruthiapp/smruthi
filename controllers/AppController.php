@@ -2,6 +2,15 @@
 
 /**
  * The App class provides utility methods for the main application.
+ *
+ * GraphenePHP App Controller
+ *
+ * This class provides validation functionalities for form fields.
+ * It allows defining validation rules and callbacks for each field,
+ * and returns error messages for invalid fields.
+ *
+ * @package GraphenePHP
+ * @version 2.0.0
  */
 class App
 {
@@ -14,7 +23,7 @@ class App
     {
         $loginID = $_COOKIE['auth'];
         DB::connect();
-        $query = DB::select('logs', '*', "loginID='$loginID' and loggedout=0")->fetchAll();
+        $query = DB::select('logs', '*', "loginID='$loginID' and loggedoutAt is null")->fetchAll();
         DB::close();
         
         if ($query) {
@@ -34,7 +43,7 @@ class App
         $loginID = $_COOKIE['auth'];
 
         DB::connect();
-        $query = DB::select('logs', '*', "loginID='$loginID' and loggedout=0")->fetchAll()[0];
+        $query = DB::select('logs', '*', "loginID='$loginID' and loggedoutAt is null")->fetchAll()[0];
         
         if ($query) {
             $email = $query['email'];
@@ -45,7 +54,18 @@ class App
             return false;
         }
     }
-
+    /**
+     * Retrieves the user information by Email.
+     *
+     * @return array|false The user information if available, or false otherwise.
+     */
+    public static function getUserByEmail($email)
+    {
+        DB::connect();
+        $query = DB::select('users', '*', "email='$email'")->fetchAll()[0];
+        return $query;        
+    }
+    
     public static function getIndex($modelName){
         return json_decode(file_get_contents('models/'.$modelName.'/index.json'), true);
     }
