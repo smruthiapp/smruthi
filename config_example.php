@@ -18,11 +18,11 @@ $config = [
     // If the Graphene App is not hosted in the main directory of the domain add the directory name in APP_SLUG
 
     'DB_CONNECTION' => 'mysql',
-    'DB_HOST' => 'localhost',
-    'DB_PORT' => '3306',
+    'DB_HOST' => 'localhost:3309',
+    'DB_PORT' => '3309',
     'DB_DATABASE' => 'smruthi',
     'DB_USERNAME' => 'root',
-    'DB_PASSWORD' => 'mysql',
+    'DB_PASSWORD' => '',
 
     'SMTP_DRIVER' => 'smtp',
     'SMTP_HOST' => 'host',

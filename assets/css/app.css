@@ -512,6 +512,11 @@ a[disabled]{
 }
 
 
+#navigateModal select {
+    border-radius: 9px;
+    font-size: 20px;
+    padding: 3px;
+}
 
 
 /* small devices (phones) */

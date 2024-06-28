@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+// errors(1);
 $adhyayas = App::getIndex('gita');
 $adhyaya = $adhyayas[$_REQUEST['adhyaya']-1];
 controller('Gita');
@@ -15,6 +16,9 @@ $next =  ($sloka['sloka'] >= $slokaCount) ? [0 => ($sloka['adhyaya'] + 1), 1 => 
 $config['APP_TITLE'] = "Bhagavad Gita - Adhyaya ".$sloka['adhyaya'].", Sloka ".$sloka['sloka']." | ". $config['APP_NAME'];
 
 $config['APP_DESC'] = "Read Bhagavad Gita on our Smruthi App now. ".$adhyaya['name']." (".$adhyaya['transliteration'].") - Adhyaya ".$sloka['adhyaya'].", Sloka ".$sloka['sloka'].". ".$adhyaya['description'].".";
+
+
+$shlokas=$gita->getAllSlokas();
 
 
 require('views/partials/head.php');

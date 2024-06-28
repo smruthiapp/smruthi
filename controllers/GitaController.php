@@ -22,4 +22,11 @@ class Gita{
         return $query;
     }
 
+    public function getAllSlokas(){
+        DB::connect();
+        $query = DB::select('gita', '*', "")->fetchAll();
+        DB::close();
+        return $query;
+    }
+
 }
