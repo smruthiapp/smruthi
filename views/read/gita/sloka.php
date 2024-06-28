@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-errors(1);
+// errors(1);
 $adhyayas = App::getIndex('gita');
 $adhyaya = $adhyayas[$_REQUEST['adhyaya']-1];
 controller('Gita');
@@ -140,37 +140,43 @@ require('views/partials/head.php');
             </div>
 
         </div>
+            
+          
 
-        <div class="bg-smruthi-4 toolbar mx-auto pb-2 d-flex justify-content-between align-items-center px-5 pb-2">
+        <div class="bg-smruthi-4 toolbar mx-auto pb-2 d-flex justify-content-between align-items-center flex-column px-5 pb-2">
 
+              <div>
+             <!-- Seek Bar -->
+                <input type="range" id="seekbar" value="0" min="0" max="100" step="1" class="mx-2">
+            </div>
 
-            <a href="#" class="link-smruthi-grey fs-4 mx-2 order-1" id="settings" type="button"
+             <div class="d-flex justify-content-between align-items-center">
+                    <a href="#" class="link-smruthi-grey fs-4 mx-2 order-1" id="settings" type="button"
                 data-bs-toggle="offcanvas" data-bs-target="#settingsModal" aria-controls="settingsModal"
                 aria-label="settings"> <i class="settings"> <img src="<?php assets('img/translate.svg')?>" alt="Translate"></i> </a>
 
 
+                <div class="d-flex justify-content-center align-items-center order-3">
+
+                    <a href="<?php echo route('read/gita/adhyaya/'.$prev[0].'/sloka/'.$prev[1])?>" class="link-smruthi mx-2"
+                        <?php echo (empty($sloka['prev'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"' ;?> id="prev"><i class="prev"> <img src="<?php assets('img/prev.svg')?>" alt="Previous"></i></a>
 
 
-            <div class="d-flex justify-content-center align-items-center order-3">
-
-                <a href="<?php echo route('read/gita/adhyaya/'.$prev[0].'/sloka/'.$prev[1])?>" class="link-smruthi mx-2"
-                    <?php echo (empty($sloka['prev'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"' ;?> id="prev"><i class="prev"> <img src="<?php assets('img/prev.svg')?>" alt="Previous"></i></a>
-
-
-                <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
-                <!-- Audio Element -->
-                <audio id="audio-player" src="https://www.gitasupersite.iitk.ac.in/sites/default/files/audio/CHAP<?php echo $adhyaya['id']; ?>/<?php echo $adhyaya['id']; ?>-<?php echo $_REQUEST['sloka']; ?>.MP3"></audio>
+                    <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
+                    <!-- Audio Element -->
+                    <audio id="audio-player" src="https://www.gitasupersite.iitk.ac.in/sites/default/files/audio/CHAP<?php echo $adhyaya['id']; ?>/<?php echo $adhyaya['id']; ?>-<?php echo $_REQUEST['sloka']; ?>.MP3"></audio>
 
 
-                <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2"
-                    <?php echo (empty($sloka['next'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"' ;?> id="next"><i class="next"> <img src="<?php assets('img/next.svg')?>" alt="NextL"></i></a>
-            </div>
+                    <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2"
+                        <?php echo (empty($sloka['next'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"' ;?> id="next"><i class="next"> <img src="<?php assets('img/next.svg')?>" alt="NextL"></i></a>
+                </div>
 
-            <a href="#" class="link-smruthi-grey fs-4 mx-2 order-4" id="navigate" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#navigateModal" aria-controls="navigateModal"
-                aria-label="navigate">
-                <i class="navigate"> <img src="<?php assets('img/navigate.svg')?>" alt="Navigate"></i> 
-            </a>
+                <a href="#" class="link-smruthi-grey fs-4 mx-2 order-4" id="navigate" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#navigateModal" aria-controls="navigateModal"
+                    aria-label="navigate">
+                    <i class="navigate"> <img src="<?php assets('img/navigate.svg')?>" alt="Navigate"></i> 
+                </a>
+             </div>
 
         </div>
 
@@ -379,28 +385,60 @@ require('views/partials/head.php');
         }
 
         // play audio
-        document.getElementById('play').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
+
+        document.addEventListener('DOMContentLoaded', function () {
             var audio = document.getElementById('audio-player');
+            var seekbar = document.getElementById('seekbar');
             var playButton = document.getElementById('play');
 
-            if (audio.paused) {
-                audio.play();
-                playButton.classList.remove('bi-play-circle-fill');
-                playButton.classList.add('bi-pause-circle-fill');
-            } else {
-                audio.pause();
+            // Update the seek bar as the audio plays
+            audio.addEventListener('timeupdate', function () {
+                var value = (audio.currentTime / audio.duration) * 100;
+                seekbar.value = value;
+            });
+
+            // Seek audio when the seek bar is changed
+            seekbar.addEventListener('input', function () {
+                var time = (seekbar.value / 100) * audio.duration;
+                audio.currentTime = time;
+
+                const value = (this.value - this.min) / (this.max - this.min) * 100;
+                this.style.setProperty('--value', `${value}%`);
+
+            });
+
+            audio.addEventListener('timeupdate', function() {
+              const value = (audio.currentTime / audio.duration) * 100;
+              seekbar.value = value;
+              seekbar.style.setProperty('--value', `${value}%`);
+            });
+
+
+            // Initialize the value on page load
+            seekbar.dispatchEvent(new Event('input'));
+
+            // Play/Pause functionality
+            playButton.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default link behavior
+
+                if (audio.paused) {
+                    audio.play();
+                    playButton.classList.remove('bi-play-circle-fill');
+                    playButton.classList.add('bi-pause-circle-fill');
+                } else {
+                    audio.pause();
+                    playButton.classList.remove('bi-pause-circle-fill');
+                    playButton.classList.add('bi-play-circle-fill');
+                }
+            });
+
+            // Event listener to change the button icon when the audio ends
+            audio.addEventListener('ended', function () {
                 playButton.classList.remove('bi-pause-circle-fill');
                 playButton.classList.add('bi-play-circle-fill');
-            }
+            });
         });
 
-        // Event listener to change the button icon when the audio ends
-        document.getElementById('audio-player').addEventListener('ended', function() {
-            var playButton = document.getElementById('play');
-            playButton.classList.remove('bi-pause-circle-fill');
-            playButton.classList.add('bi-play-circle-fill');
-        });
         
     </script>
 
