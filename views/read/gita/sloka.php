@@ -143,9 +143,9 @@ require('views/partials/head.php');
             
           
 
-        <div class="bg-smruthi-4 toolbar mx-auto pb-2  px-5 pb-2">
+        <div class="bg-smruthi-4 toolbar mx-auto pb-2  px-5 pb-2 shadow-sm">
 
-              <div>
+              <div class="player">
              <!-- Seek Bar -->
                 <input type="range" id="seekbar" value="0" min="0" max="100" step="1" class="mx-2">
             </div>
@@ -312,77 +312,6 @@ require('views/partials/head.php');
     </script>
 
     <script>
-    var touchStartX = 0;
-        var touchEndX = 0;
-        
-        var next = document.querySelector('#next');
-        var prev = document.querySelector('#prev');
-        
-        // Add event listeners for touch and drag events
-        document.addEventListener('touchstart', handleTouchStart, false);
-        document.addEventListener('touchmove', handleTouchMove, false);
-        document.addEventListener('mousedown', handleMouseDown, false);
-        document.addEventListener('mousemove', handleMouseMove, false);
-        document.addEventListener('mouseup', handleMouseUp, false);
-        
-        // Function to handle touch start event
-        function handleTouchStart(event) {
-          touchStartX = event.touches[0].clientX;
-        }
-        
-        // Function to handle touch move event
-        function handleTouchMove(event) {
-          touchEndX = event.touches[0].clientX;
-          handleSwipe();
-        }
-        
-        // Function to handle mouse down event
-        function handleMouseDown(event) {
-          touchStartX = event.clientX;
-        }
-        
-        // Function to handle mouse move event
-        function handleMouseMove(event) {
-          touchEndX = event.clientX;
-          handleSwipe();
-        }
-        
-        // Function to handle mouse up event
-        function handleMouseUp() {
-          touchStartX = 0;
-          touchEndX = 0;
-        }
-        
-        // Function to handle swipe action
-        function handleSwipe() {
-          var minSwipeDistance = 180; // Minimum distance required to register as a swipe
-        
-          // Calculate the distance swiped
-          var swipeDistance = touchEndX - touchStartX;
-        
-          // Check if the swipe distance is greater than the minimum required
-          if (Math.abs(swipeDistance) >= minSwipeDistance) {
-            if (swipeDistance > 0) {
-              // Swipe to the right (previous action)
-              triggerPreviousAction();
-            } else {
-              // Swipe to the left (next action)
-              triggerNextAction();
-            }
-          }
-        }
-        
-        // Function to trigger the previous action
-        function triggerPreviousAction() {
-          if(prev.ariaDisabled == "false"){ 
-            prev.click();
-          }
-        }
-        
-        // Function to trigger the next action
-        function triggerNextAction() {
-          if(next.ariaDisabled == "false") next.click();
-        }
 
         // play audio
 

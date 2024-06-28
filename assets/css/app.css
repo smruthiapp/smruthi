@@ -439,19 +439,23 @@ Border Colors
     float: right;
 }
 
-#read{
-    .owl-carousel .card{
+#read .owl-carousel .card{
         height: 200px !important;
     }
-    .card .illustration img{
+#read .card .illustration img{
         max-height: 100px;
     }
-}
+
 
 #seekbar {
     width: 100%;
-    height: 5px;
+    height: 3px;
     border:none;
+    border-radius: 50px;
+}
+
+.player{
+    padding-top: -20px;
 }
 
 /* Base styles for the seek bar */
@@ -467,34 +471,34 @@ input[type="range"] {
 /* Track */
 input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 5px;
+  height: 3px;
   cursor: pointer;
   background: linear-gradient(to right, var(--smruthi-primary) 0%, var(--smruthi-primary) var(--value), #ddd var(--value), #ddd 100%);
-  border-radius: 1.3px;
+  border-radius: 50px;
 }
 
 input[type="range"]::-moz-range-track {
   width: 100%;
-  height: 5px;
+  height: 3px;
   cursor: pointer;
   background: linear-gradient(to right, var(--smruthi-primary) 0%, var(--smruthi-primary) var(--value), #ddd var(--value), #ddd 100%);
-  border-radius: 1.3px;
+  border-radius: 50px;
 }
 
 input[type="range"]::-ms-track {
   width: 100%;
-  height: 5px;
+  height: 3px;
   cursor: pointer;
-  background: transparent; 
-  border-color: transparent;
+  background: linear-gradient(to right, var(--smruthi-primary) 0%, var(--smruthi-primary) var(--value), #ddd var(--value), #ddd 100%);
+  border-color: linear-gradient(to right, var(--smruthi-primary) 0%, var(--smruthi-primary) var(--value), #ddd var(--value), #ddd 100%);
   color: transparent;
 }
 
 /* Handle */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 15px;
-  width: 15px;
+  height: 13px;
+  width: 13px;
   border-radius: 50%;
   background: var(--smruthi-primary); /* Handle color */
   cursor: pointer;
@@ -598,7 +602,6 @@ a[disabled]{
 
 #navigateModal select {
     border-radius: 9px;
-    font-size: 20px;
     padding: 3px;
 }
 
