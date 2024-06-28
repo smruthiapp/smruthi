@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-// errors(1);
+errors(1);
 $adhyayas = App::getIndex('gita');
 $adhyaya = $adhyayas[$_REQUEST['adhyaya']-1];
 controller('Gita');
@@ -158,6 +158,8 @@ require('views/partials/head.php');
 
 
                 <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
+                <!-- Audio Element -->
+                <audio id="audio-player" src="https://www.gitasupersite.iitk.ac.in/sites/default/files/audio/CHAP<?php echo $adhyaya['id']; ?>/<?php echo $adhyaya['id']; ?>-<?php echo $_REQUEST['sloka']; ?>.MP3"></audio>
 
 
                 <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2"
@@ -375,6 +377,30 @@ require('views/partials/head.php');
         function triggerNextAction() {
           if(next.ariaDisabled == "false") next.click();
         }
+
+        // play audio
+        document.getElementById('play').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            var audio = document.getElementById('audio-player');
+            var playButton = document.getElementById('play');
+
+            if (audio.paused) {
+                audio.play();
+                playButton.classList.remove('bi-play-circle-fill');
+                playButton.classList.add('bi-pause-circle-fill');
+            } else {
+                audio.pause();
+                playButton.classList.remove('bi-pause-circle-fill');
+                playButton.classList.add('bi-play-circle-fill');
+            }
+        });
+
+        // Event listener to change the button icon when the audio ends
+        document.getElementById('audio-player').addEventListener('ended', function() {
+            var playButton = document.getElementById('play');
+            playButton.classList.remove('bi-pause-circle-fill');
+            playButton.classList.add('bi-play-circle-fill');
+        });
         
     </script>
 
