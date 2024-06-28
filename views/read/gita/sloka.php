@@ -143,7 +143,7 @@ require('views/partials/head.php');
             
           
 
-        <div class="bg-smruthi-4 toolbar mx-auto pb-2 d-flex justify-content-between align-items-center flex-column px-5 pb-2">
+        <div class="bg-smruthi-4 toolbar mx-auto pb-2  px-5 pb-2">
 
               <div>
              <!-- Seek Bar -->
