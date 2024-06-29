@@ -1,5 +1,4 @@
-<div class="offcanvas offcanvas-bottom mx-auto" tabindex="-1" id="settingsModal" aria-labelledby="settingsModalLabel"
-    data-bs-backdrop="static">
+<div class="offcanvas offcanvas-bottom mx-auto" tabindex="-1" id="settingsModal" aria-labelledby="settingsModalLabel">
     <div class="offcanvas-header px-4">
 
         <h5 class="offcanvas-title" id="settingsModalLabel">Settings</h5>
