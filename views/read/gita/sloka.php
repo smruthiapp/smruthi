@@ -49,11 +49,6 @@ require('views/partials/head.php');
                     data-bs-target="#shareModal" aria-controls="shareModal" aria-label="Share"><i
                         class="bi bi-share"></i></a>
 
-                <?php include('views/partials/share.php');?>
-                <?php include('views/partials/settings.php');?>
-                <?php include('views/partials/save.php');?>
-                <?php include('views/partials/navigate.php');?>
-
 
             </div>
 
@@ -68,6 +63,15 @@ require('views/partials/head.php');
                 <?php echo $sloka['sloka'];?>
             </h3>
         </div>
+        
+            
+                <div class="modals">
+                    <?php include('views/partials/share.php');?>
+                    <?php include('views/partials/settings.php');?>
+                    <?php include('views/partials/save.php');?>
+                    <?php include('views/partials/navigate.php');?>
+                </div>
+          
 
     </nav>
 
@@ -136,14 +140,13 @@ require('views/partials/head.php');
                     </div>
 
                 </div>
+                
 
             </div>
 
         </div>
-            
-          
 
-        <div class="bg-smruthi-4 toolbar mx-auto pb-2  px-5 pb-2 shadow-sm">
+        <div class="bg-smruthi-4 toolbar mx-auto pb-2  px-5 pb-2 shadow-sm z-2">
 
               <div class="player">
              <!-- Seek Bar -->
@@ -176,6 +179,7 @@ require('views/partials/head.php');
                     aria-label="navigate">
                     <i class="navigate"> <img src="<?php assets('img/navigate.svg')?>" alt="Navigate"></i> 
                 </a>
+                
              </div>
 
         </div>
@@ -185,6 +189,10 @@ require('views/partials/head.php');
 
         <?php include('views/partials/footer.php') ?>
     </div>
+    
+    
+
+                
     <script src="<?php assets('sanscript/sanscript.js')?>"></script>
     <script>
         let sloka = []
