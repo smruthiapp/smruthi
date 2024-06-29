@@ -1,5 +1,4 @@
-<div class="offcanvas offcanvas-bottom mx-auto" tabindex="-1" id="shareModal" aria-labelledby="shareModalLabel"
-    data-bs-backdrop="static">
+<div class="offcanvas offcanvas-bottom mx-auto" tabindex="-1" id="shareModal" aria-labelledby="shareModalLabel">
     <div class="offcanvas-header px-4">
 
         <h5 class="offcanvas-title" id="shareModalLabel">Share</h5>
