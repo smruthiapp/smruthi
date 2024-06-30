@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $register=$user->verifyOTP($phone,$otp);
 
-         if( isset($register['phone']) || (isset($register['error']) && !$register['error'])){
+         if( (isset($register['status']) && $register['status']=="verified") || (isset($register['error']) && !$register['error'])){
 
             $login=$user->login($phone);
             $loginMsg['msg']="Login Successful!";

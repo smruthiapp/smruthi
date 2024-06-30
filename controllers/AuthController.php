@@ -374,10 +374,7 @@ public function verifyOTP($phone, $otp)
     } else {
 
         $updateData = [
-            'phone' => $this->phone,
-            'role' => $this->role,
             'status' => $this->status,
-            'otp'=>$this->orderId,
             'verifiedAt' => date('Y-m-d H:i:s'),
         ];
 
