@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-errors(1);
+// errors(1);
+
+if (!App::getSession())
+  redirect('login');
 
 $currentUser = App::getUser();
 
@@ -22,19 +25,29 @@ require('views/partials/head.php');
 ?>
 
 <body>
-    <nav class="navbar mx-auto position-fixed fixed-top shadow-sm">
-        <div class="container-fluid mx-2 mt-4 d-block">
-            <a class="link-smruthi-grey text-decoration-none" href="<?php echo route('read/gita') ?>">
-                <span class="fs-4">
-                    <i class="bi bi-arrow-left"></i> 
-                </span>
-                <span class="text-smruthi font-smruthi">Saved Slokas</span>
-            </a>
+    <nav class="navbar">
+        <div class="container-fluid d-flex justify-content-center">            
+          <a class="navbar-brand" href="<?php echo route('')?>"
+          >
+            <img src="<?php echo assets('img/Smruthi.png')?>"
+              alt="Smruthi Logo"
+              class="img-fluid"/>
+          </a>
         </div>
     </nav>
 
+    <?php 
+    if(App::getUser()) include('views/partials/reading.php');
+?>
+        
+
+        <div class="heading">
+            <h6 class="fs-7 text-smruthi-black mt-2 px-2 float"> Saved Slokas</h6>
+            
+        </div>
+
     <div class="container" id="gita">
-        <div class="py-5 px-2" id="gita">
+        <div class="py-3 px-2" id="gita">
             <?php if (!empty($slokas)) { ?>
                 <ul class="list-group">
                     <?php
@@ -92,7 +105,15 @@ require('views/partials/head.php');
                     <?php } } ?>
                 </ul>
             <?php } else { ?>
-                No saved slokas found!
+                
+                 <div class="mx-auto text-center">
+                     <img src="<?php echo assets('img/Sri.Svg')?>"
+              alt="Sri" width="250"
+              class="img-fluid"/>
+
+              <h6 class="text-muted">No Slokas Saved Yet</h6>
+                 </div>
+
             <?php } ?>
         </div>
         <?php include('views/partials/footer.php') ?>
