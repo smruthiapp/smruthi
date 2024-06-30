@@ -2,20 +2,30 @@
 
 /**
  * The Auth class handles authentication and user management.
+ *
+ * GraphenePHP Auth Controller
+ *
+ * This class provides validation functionalities for form fields.
+ * It allows defining validation rules and callbacks for each field,
+ * and returns error messages for invalid fields.
+ *
+ * @package GraphenePHP
+ * @version 2.0.0
  */
 class Auth
 {
     protected $db;
-    protected $loginID;
+    protected $loginId;
     protected $currentLog;
+    protected $userID;
     protected $email;
-    protected $password;
+    protected $gender;
     protected $ip;
     protected $os;
     protected $browser;
     protected $name;
     protected $phone;
-    protected $passwordWithoutMD5;
+    protected $orderId;
     protected $role;
     protected $status;
     protected $error;
@@ -30,6 +40,22 @@ class Auth
         $this->errors = "";
     }
 
+
+
+     // get user by phone
+
+      public static function getUserByPhone($phone)
+    {   
+        DB::connect();
+        $getUser = DB::select('users', '*', "phone = '$phone' and status <> 'deleted'")->fetch();
+        DB::close();
+        if ($getUser)
+            return $getUser;
+        else
+            return ['error' => true, "errorMsgs" => ['user' => "User Not Found"]];
+    }
+    
+
      /**
      * Checks the validity of the session.
      *
@@ -38,10 +64,10 @@ class Auth
     // Check the session validity
     public function checkSession()
     {
-        $this->loginID = $_COOKIE['auth'];
+        $this->loginId = $_COOKIE['auth'];
 
         DB::connect();
-        $query = DB::select('logs', '*', "loginID = '$this->loginID' AND loggedout = 0")->fetchAll();
+        $query = DB::select('logs', '*', "loginId = '$this->loginId' AND loggedoutAt is null")->fetchAll();
         DB::close();
 
         if ($query) {
@@ -52,33 +78,25 @@ class Auth
         }
     }
 
-    /**
-     * Authenticates the user with the provided email and password.
-     *
-     * @param string $email The user's email.
-     * @param string $password The user's password.
-     * @return array The result of the login operation.
-     */
-    public function login($email, $password)
+
+    // login By OTP
+
+     public function login($phone)
     {
         DB::connect();
-        $this->email = strtolower(trim(DB::sanitize($email)));
-        $this->password = DB::sanitize($password);
+        $this->phone = $phone;
+        $this->userID = $this->getUserByPhone($phone)['userID'];
         DB::close();
 
-
-
+    
         DB::connect();
-        $loginQuery = DB::select('users', '*', "email = '$this->email'")->fetchAll()[0];
+        $loginQuery = DB::select('users', '*', "phone = '$this->phone' and status <> 'deleted'")->fetchAll()[0];
         DB::close();
-
+        
         // Check if user exists
         if ($loginQuery) {
-            // Check if password is correct
-            if ($loginQuery['password'] == md5($this->password)) {
-
-                $this->loginID = md5(sha1($this->email) . sha1($this->password) . sha1(time()));
-                setcookie("auth", $this->loginID, time() + (86400 * 365), "/");
+                $this->loginId = md5(sha1($this->phone). sha1(time()));
+                
 
                 $this->ip = getDevice()['ip'];
                 $this->os = getDevice()['os'];
@@ -86,8 +104,8 @@ class Auth
 
                 $time = date_create()->format('Y-m-d H:i:s');
                 $data = [
-                    'loginID' => $this->loginID,
-                    'email' => $this->email,
+                    'loginId' => $this->loginId,
+                    'userID' => $this->userID,
                     'ip' => $this->ip,
                     'browser' => $this->browser,
                     'os' => $this->os,
@@ -99,67 +117,64 @@ class Auth
                 DB::close();
 
                 if ($insertedLog) {
-                    if (!empty($_GET['back'])) {
-                        header("Location:" . $_GET['back']);
+                    setcookie("auth", $this->loginId, time() + (86400 * 365), "/");
+
+                    DB::connect();
+                        $checkData = DB::select('users', '*', "phone = '$this->phone' and name IS NULL OR email IS NULL OR gender IS NULL")->fetchAll()[0];
+
+                    DB::close();
+
+                    if ($checkData['name']=='' OR $checkData['email']=='' OR $checkData['gender']=='') {
+                        header("Location:" . route('')."user/profile");
                     } else {
-                        header("Location:" . home());
+                        header("Location:" . route(''));
                     }
-                } else {
-                    $this->errors = "Internal Server Error";
-                }
-            } else {
-                $this->errors = "Password Doesn't Match";
-            }
-        } else {
-            $this->errors = "User Not Found";
-        }
-        return ['error' => true, 'errorMsg' => $this->errors];
+                    
+                } else $this->errors = "Internal Server Error";
+                
+            
+        } else $this->errors = "User Not Found ";
+            
+            return ['error' => true, 'errorMsg' => $this->errors];
     }
 
-     /**
-     * Checks if an email exists for a specific role.
-     *
-     * @param string $email The email to check.
-     * @param string $role The role to check against.
-     * @return bool Returns true if the email exists for the specified role, false otherwise.
-     */
-    public function check($email, $role)
+
+    public function checkPhone($phone, $role)
     {
         DB::connect();
-        $result = DB::select('users', '*', "email = '$email' and role = '$role'")->fetchAll();
+        $result = DB::select('users', '*', "phone = '$phone' and role = '$role' and status <> 'deleted'")->fetchAll();
         DB::close();
         return count($result);
     }
     
 
-    
     /**
-     * Get a  user with email.
+     * Get a  user with userID.
      *
-     * @param string $email The email of the user.
+     * @param string $userID The userID of the user.
      * @return array The result of the select query.
      */
-    public function getUser($email)
-    {
+    public static function getUser($userID)
+    {   
         DB::connect();
-        $getUser = DB::select('users', '*', "email = 'DB::sanitize($email)'")->fetchAll();
+        $userID = DB::sanitize($userID);
+        $getUser = DB::select('users', '*', "userID = '$userID' and status <> 'deleted'")->fetch();
         DB::close();
         if ($getUser)
             return $getUser;
         else
-            return ['error' => true];
+            return ['error' => true, "errorMsgs" => ['user' => "User Not Found"]];
     }
 
 
-    
     /**
      * Get all users.
      * @return array The result of the select query.
      */
-    public function getUsers()
+    public static function getUsers()
     {
         DB::connect();
-        $users = DB::select('users', '*')->fetchAll();
+        $users = DB::select('users', '*', "status <> 'deleted'")->fetchAll();
         DB::close();
         if ($users)
             return $users;
@@ -169,59 +184,23 @@ class Auth
 
 
     
-    /**
-     * Registers a new user.
-     *
-     * @param array $userData The user data to be registered.
-     * @return array The result of the registration operation.
-     */
-    public function register($name, $email, $phone, $password, $role)
+
+    // register using OTP
+
+    public function register($phone, $orderId, $role, $status = "pending")
     {
         // Sanitize fields
         DB::connect();
-        $this->name = trim(DB::sanitize($name));
-        $this->email = strtolower(trim(DB::sanitize($email)));
         $this->phone = trim(DB::sanitize($phone));
-        $this->passwordWithoutMD5 = DB::sanitize($password);
+        $this->orderId = trim(DB::sanitize($orderId));
         $this->role = trim(DB::sanitize($role));
+        $this->status = trim(DB::sanitize($status));
         DB::close();
+
+        $this->userID = md5(md5($this->phone.$this->orderId).md5(time().uniqid()));
 
         // fields array
         $fields = [
-            'name' => [
-                'value' => $this->name,
-                'rules' => [
-                    [
-                        'type' => 'required',
-                        'message' => "Name can't be empty",
-                    ],
-                    [
-                        'type' => 'minLength',
-                        'message' => "Name can't be less than 6 characters",
-                        'minLength' => 6,
-                    ]
-                ]
-            ],
-            'email' => [
-                'value' => $this->email,
-                'rules' => [
-                    [
-                        'type' => 'required',
-                        'message' => "Email can't be empty",
-                    ],
-                    [
-                        'type' => 'email',
-                        'message' => 'Email is invalid',
-                    ],
-                    [
-                        'type' => 'custom',
-                        'message' => 'Email already in use',
-                        'validate' => function () {
-                            return !($this->check($this->email, $this->role));
-                        },
-                    ],
-                ],
-            ],
             'phone' => [
                 'value' => $this->phone,
                 'rules' => [
@@ -232,22 +211,17 @@ class Auth
                     [
                         'type' => 'phone',
                         'message' => "Invalid Phone",
-                    ]
-                ]
-            ],
-            'password' => [
-                'value' => $this->passwordWithoutMD5,
-                'rules' => [
-                    [
-                        'type' => 'required',
-                        'message' => "Password can't be empty",
                     ],
                     [
-                        'type' => 'password',
-                        'message' => "Invalid Password",
-                    ]
+                        'type' => 'custom',
+                        'message' => 'Phone already in use',
+                        'validate' => function () {
+                            return !($this->checkPhone($this->phone, $this->role));
+                        },
+                    ],
                 ]
             ],
+            
         ];
 
         // Call the Validator::validate function
@@ -256,14 +230,13 @@ class Auth
             return ['error' => $validate['error'], 'errorMsgs' => $validate['errorMsgs']];
         } else {
 
-            $this->password = md5($this->passwordWithoutMD5);
-
             $data = array(
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => $this->password,
+                'userID' => $this->userID,
+                'orderId' => $this->orderId,
                 'phone' => $this->phone,
-                'role' => $this->role
+                'role' => $this->role,
+                'status' => $this->status,
+                'createdAt' => date('Y-m-d H:i:s'),
             );
 
 
@@ -282,68 +255,96 @@ class Auth
             if ($this->error) {
                 return ['error' => $this->error, 'errorMsgs' => $this->errorMsgs];
             } else {
-                $userLogin = new Auth();
-                return $userLogin->login($this->email, $this->passwordWithoutMD5);
+                return ['error' => $this->error, 'errorMsgs' => $this->errorMsgs, 'message' => 'Registration successful'];
             }
         }
 
     }
 
+    // Send OTP
+    public function sendOTP($phone){
 
-        /**
-     * Edits user information.
-     *
-     * @param array $data The user data to be edited.
-     * @return array The result of the edit operation.
-     */
-    public function edit($data)
-    {
-        DB::connect();
-        $this->name = trim(DB::sanitize($data['name']));
-        $this->email = trim(DB::sanitize($data['email']));
-        $this->phone = trim(DB::sanitize($data['phone']));
-        $this->password = DB::sanitize($data['password']);
-        $this->role = trim(DB::sanitize($data['role']));
-        $this->status = trim(DB::sanitize($data['status']));
-        DB::close();
+        $getUser=$this->getUserByPhone($phone);
 
-        // Define validation rules for fields
-        $fields = [
-            'name' => [
-                'value' => $this->name,
-                'rules' => [
-                    [
-                        'type' => 'required',
-                        'message' => "Name can't be empty",
-                    ],
-                    [
-                        'type' => 'minLength',
-                        'message' => "Name can't be less than 6 characters",
-                        'minLength' => 6,
-                    ]
+        controller('OTPLess');
+        $sms = new OTPLess();
+        $message = $sms->sendOTP("+91".$phone);
+        $result = json_decode($message, true);
+
+        if($getUser['phone']){
+
+          $userID=$getUser['userID'];  
+
+          $updateData = [
+              'phone' => $phone,
+              'orderId'=>$result['orderId']
+          ];
+
+
+          DB::connect();
+          $updateOTP = DB::update('users', $updateData, "userID = '$userID'");
+          DB::close();
+
+          if($updateOTP){
+            $this->error = false;
+            $this->errorMsgs['sendOTP'] = '';
+          }
+          else{
+             $this->error = true;
+             $this->errorMsgs['sendOTP'] = 'Unable to send OTP';
+          }
+      }else{
+        $register = $this->register($phone,$result['orderId'],'user');   
+          if($register){
+            $this->error = false;
+            $this->errorMsgs['sendOTP'] = '';
+            $this->errorMsgs['orderId'] = $result['orderId'];
+          }
+          else{
+             $this->error = true;
+             $this->errorMsgs['sendOTP'] = 'Unable to send OTP';
+          }
+      }
+
+           if ($this->error) {
+                return ['error' => $this->error, 'errorMsgs' => $this->errorMsgs];
+           } else {
+                return ['error' => $this->error, 'errorMsgs' => $this->errorMsgs, 'message' => 'OTP has been sent!'];
+            }
+    }
+
+
+
+// verify OTP
+public function verifyOTP($phone, $otp)
+{
+    DB::connect();
+    $this->userID=$this->getUserByPhone($phone)['userID'];
+    $this->phone = $phone;
+    $this->status ='verified';
+    DB::close();
+
+    DB::connect();
+    $checkOTP = DB::select('users', '*', "phone = '$phone' and status <> 'deleted' ")->fetch();
+    DB::close();
+
+
+    // Define validation rules for fields
+    $fields = [
+        'userId' => [
+            'values'=> $this->userID,
+            'rules' => [
+                [
+                    'type' => 'custom',
+                    'message' => 'Invalid User',
+                    'validate' => function () {
+                        return $this->getUser($this->userID);
+                    },
+
                 ]
-            ],
-            'email' => [
-                'value' => $this->email,
-                'rules' => [
-                    [
-                        'type' => 'required',
-                        'message' => "Email can't be empty",
-                    ],
-                    [
-                        'type' => 'email',
-                        'message' => 'Email is invalid',
-                    ],
-                    [
-                        'type' => 'custom',
-                        'message' => 'Invalid User',
-                        'validate' => function () {
-                            return ($this->check($this->email, $this->role));
-                        },
-                    ],
-                ],
-            ],
-            'phone' => [
+            ]
+        ],
+         'phone' => [
                 'value' => $this->phone,
                 'rules' => [
                     [
@@ -353,52 +354,184 @@ class Auth
                     [
                         'type' => 'phone',
                         'message' => "Invalid Phone",
-                    ]
+                    ],
+                    [
+                        'type' => 'custom',
+                        'message' => 'Phone already in use',
+                        'validate' => function () {
+                            return !($this->checkPhone($this->phone, $this->role));
+                        },
+                    ],
                 ]
             ],
+    ];
+
+    // Call the validateFields function
+    $validate = Validator::validate($fields);
+
+    if ($validate['error']) {
+        return ['error' => $validate['error'], 'errorMsgs' => $validate['errorMsgs']];
+    } else {
+
+        $updateData = [
+            'phone' => $this->phone,
+            'role' => $this->role,
+            'status' => $this->status,
+            'otp'=>$this->orderId,
+            'verifiedAt' => date('Y-m-d H:i:s'),
         ];
 
-        // Call the validateFields function
-        $validate = Validator::validate($fields);
+        controller('OTPLess');
+        $sms = new OTPLess();
+        $message = $sms->verifyOTP($this->phone,$otp,$checkOTP['otp']);
 
-        if ($validate['error']) {
-            return ['error' => $validate['error'], 'errorMsgs' => $validate['errorMsgs']];
-        } else {
-            $this->password = md5($data['password']);
-
-            $data = array(
-                'name' => $this->name,
-                'password' => $this->password,
-                'phone' => $this->phone,
-                'role' => $this->role,
-                'status' => $this->status
-            );
-
-            DB::connect();
-            $updateUser = DB::update('users', $data, "email = '$this->email'");
+        if ($checkOTP){
+            
+             DB::connect();
+            $updateUser = DB::update('users', $updateData, "userID = '$this->userID'");
             DB::close();
 
             if ($updateUser) {
-                $this->error = false;
-                $this->errorMsgs['updateUser'] = '';
-            } else {
-                $this->error = true;
-                $this->errorMsgs['updateUser'] = 'User account Updation failed ';
-            }
-
-            if ($this->error) {
-                return ['error' => $this->error, 'errorMsgs' => $this->errorMsgs];
+                return $updateData;
             } else {
                 return [
-                    'email' => $this->email,
-                    'name' => $this->name,
-                    'phone' => $this->phone,
-                    'password' => $this->password,
-                    'role' => $this->role
+                    'error' => true,
+                    'errorMsgs' => ['updateUser' => 'Verification Failed!'],
                 ];
             }
         }
+        else{
+            return [
+                    'error' => true,
+                    'errorMsgs' => ['updateUser' => 'Verification Failed!'],
+                ];
+        }
+        
     }
+}
+
+
+
+        /**
+     * Edits user information.
+     *
+     * @param array $data The user data to be edited.
+     * @return array The result of the edit operation.
+     */public function edit($userID, $data)
+{
+    DB::connect();
+    $this->name = trim(DB::sanitize($data['name']));
+    $this->gender = trim(DB::sanitize($data['gender']));
+    $this->userID = trim(DB::sanitize($userID));
+    $this->email = trim(DB::sanitize($data['email']));
+    $this->phone = trim(DB::sanitize($data['phone']));
+    // $this->password = DB::sanitize($data['password']);
+    // $this->role = trim(DB::sanitize($data['role']));
+    // $this->status = trim(DB::sanitize($data['status']));
+    DB::close();
+
+    // Define validation rules for fields
+    $fields = [
+        'userId' => [
+            'values'=> $this->userID,
+            'rules' => [
+                [
+                    'type' => 'custom',
+                    'message' => 'Invalid User',
+                    'validate' => function () {
+                        return $this->getUser($this->userID);
+                    },
+
+                ]
+            ]
+        ],
+        'name' => [
+            'value' => $this->name,
+            'rules' => [
+                [
+                    'type' => 'required',
+                    'message' => "Name can't be empty",
+                ],
+                [
+                    'type' => 'minLength',
+                    'message' => "Name can't be less than 6 characters",
+                    'minLength' => 6,
+                ]
+            ]
+        ],
+        'email' => [
+            'value' => $this->email,
+            'rules' => [
+                [
+                    'type' => 'required',
+                    'message' => "Email can't be empty",
+                ],
+                [
+                    'type' => 'email',
+                    'message' => 'Email is invalid',
+                ],
+                [
+                    'type' => 'custom',
+                    'message' => 'Email already in use',
+                    'validate' => function () {
+                        return true;
+                    },
+                ],
+            ],
+        ],
+        'phone' => [
+            'value' => $this->phone,
+            'rules' => [
+                [
+                    'type' => 'required',
+                    'message' => "Phone can't be empty",
+                ],
+                [
+                    'type' => 'phone',
+                    'message' => "Invalid Phone",
+                ],
+                [
+                    'type' => 'custom',
+                    'message' => 'Phone already in use',
+                    'validate' => function () {
+                        return true;
+                    },
+                ],
+            ]
+        ],
+    ];
+
+    // Call the validateFields function
+    $validate = Validator::validate($fields);
+
+    if ($validate['error']) {
+        return ['error' => $validate['error'], 'errorMsgs' => $validate['errorMsgs']];
+    } else {
+
+        $updateData = [
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'gender' => $this->gender,
+            // 'status' => $this->status,
+            'verifiedAt' => date('Y-m-d H:i:s'),
+        ];
+        
+
+        DB::connect();
+        $updateUser = DB::update('users', $updateData, "userID = '$this->userID'");
+        DB::close();
+
+        if ($updateUser) {
+            return $updateData;
+        } else {
+            return [
+                'error' => true,
+                'errorMsgs' => ['updateUser' => 'User account Updation failed'],
+            ];
+        }
+    }
+}
 
     /**
      * Deletes a user account.
@@ -406,51 +539,65 @@ class Auth
      * @param string $email The email of the user to be deleted.
      * @return array The result of the delete operation.
      */
-    public function delete($email)
+    public function delete($userID)
     {
-        if (!$this->getUser($email)) {
+        $check = $this->getUser($userID);
+    
+        if ($check['error']) {
+            return $check;
+        }
+    
+        $data = [
+            'status' => 'deleted'
+        ];
+    
+        // Update the 'users' table
+        DB::connect();
+        $deleteUser = DB::update('users', $data, "userID = '$userID'");
+        DB::close();
+    
+        if (!$deleteUser) {
             return [
                 'error' => true,
-                'errorMsg' => 'User not found'
+                'errorMsg' => 'Failed to delete user'
             ];
         }
-
-        $data = array(
-            'status' => 1
-        );
-
         DB::connect();
-        $deleteUser = DB::update('users', $data, "email = '$email'");
+        // Update the 'logs' table
+        $updateLogs = DB::update('logs', ['loggedOutAt' => date('Y-m-d H:i:s')], "userID = '$userID'");
+    
         DB::close();
-
-        if ($deleteUser) {
+    
+        if ($updateLogs) {
             return [
                 'error' => false,
-                'errorMsg' => ''
+                'errorMsg' => '',
+                'message' => "$userID successfully deleted"
             ];
         } else {
             return [
                 'error' => true,
-                'errorMsg' => 'Failed to delete user '
+                'errorMsg' => 'Failed to update logs table'
             ];
         }
     }
+    
 
     /**
      * Logs out the user.
      */
     public function logout()
     {
-        $loginID = App::getSession()['loginID'];
+        errors();
+        $loginId = App::getSession()['loginId'];
         $time = date_create()->format('Y-m-d H:i:s');
 
         $data = array(
-            'loggedout' => 1,
-            'loggedoutat' => $time
+            'loggedoutAt' => $time
         );
 
         DB::connect();
-        $updateLog = DB::update('logs', $data, "loginID = '$loginID'");
+        $updateLog = DB::update('logs', $data, "loginId = '$loginId'");
         DB::close();
 
         if ($updateLog) {

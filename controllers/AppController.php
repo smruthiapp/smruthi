@@ -46,8 +46,8 @@ class App
         $query = DB::select('logs', '*', "loginID='$loginID' and loggedoutAt is null")->fetchAll()[0];
         
         if ($query) {
-            $email = $query['email'];
-            $currentLog = DB::select('users', '*', "email='$email'")->fetchAll();
+            $userID = $query['userID'];
+            $currentLog = DB::select('users', '*', "userID='$userID'")->fetchAll();
             DB::close();
             return $currentLog[0];
         } else {
