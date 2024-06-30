@@ -24,60 +24,60 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    var adhyayas;
+    document.addEventListener('DOMContentLoaded', function () {
+        var adhyayas;
 
-    // Fetch the JSON data
-    fetch('<?php echo route("models/gita/index.json") ?>')
-        .then(response => response.json())
-        .then(data => {
-            adhyayas = data;
+        // Fetch the JSON data
+        fetch('<?php echo route("models/gita/index.json") ?>')
+            .then(response => response.json())
+            .then(data => {
+                adhyayas = data;
 
-            // Populate the Adhyaya dropdown
-            var adhyayaSelect = document.getElementById('adhyaya');
-            adhyayaSelect.innerHTML = '<option>Select Adhyaya</option>';
-            adhyayas.forEach(adhyaya => {
-                var option = document.createElement('option');
-                option.value = adhyaya.adhyaya;
-                option.text = `${adhyaya.adhyaya} - ${adhyaya.transliteration}`;
-                adhyayaSelect.appendChild(option);
+                // Populate the Adhyaya dropdown
+                var adhyayaSelect = document.getElementById('adhyaya');
+                adhyayaSelect.innerHTML = '<option>Select Adhyaya</option>';
+                adhyayas.forEach(adhyaya => {
+                    var option = document.createElement('option');
+                    option.value = adhyaya.adhyaya;
+                    option.text = `${adhyaya.adhyaya} - ${adhyaya.transliteration}`;
+                    adhyayaSelect.appendChild(option);
+                });
             });
+
+        document.getElementById('adhyaya').addEventListener('change', function () {
+            var adhyayaId = this.value;
+            var slokaSelect = document.getElementById('sloka');
+            var slokaContainer = document.getElementById('sloka-container');
+            slokaSelect.innerHTML = '<option>Select sloka</option>';
+
+            if (adhyayaId) {
+                slokaContainer.style.display = 'block';
+
+                var selectedAdhyaya = adhyayas.find(adhyaya => adhyaya.adhyaya == adhyayaId);
+
+                for (let i = 1; i <= selectedAdhyaya.slokas; i++) {
+                    var option = document.createElement('option');
+                    option.value = i;
+                    option.text = i;
+                    slokaSelect.appendChild(option);
+                }
+            } else {
+                slokaContainer.style.display = 'none';
+                slokaSelect.disabled = true;
+            }
         });
 
-    document.getElementById('adhyaya').addEventListener('change', function() {
-        var adhyayaId = this.value;
-        var slokaSelect = document.getElementById('sloka');
-        var slokaContainer = document.getElementById('sloka-container');
-        slokaSelect.innerHTML = '<option>Select sloka</option>';
-
-        if (adhyayaId) {
-            slokaContainer.style.display = 'block';
-
-            var selectedAdhyaya = adhyayas.find(adhyaya => adhyaya.adhyaya == adhyayaId);
-
-            for (let i = 1; i <= selectedAdhyaya.slokas; i++) {
-                var option = document.createElement('option');
-                option.value = i;
-                option.text = i;
-                slokaSelect.appendChild(option);
+        document.getElementById('sloka').addEventListener('change', function () {
+            var slokaId = this.value;
+            if (slokaId) {
+                var adhyayaId = document.getElementById('adhyaya').value;
+                var currentUrl = window.location.href;
+                var urlParts = currentUrl.split('/');
+                urlParts[urlParts.length - 1] = slokaId;
+                urlParts[urlParts.length - 3] = adhyayaId;
+                var newUrl = urlParts.join('/');
+                window.location.href = newUrl;
             }
-        } else {
-            slokaContainer.style.display = 'none';
-            slokaSelect.disabled = true;
-        }
+        });
     });
-
-    document.getElementById('sloka').addEventListener('change', function() {
-        var slokaId = this.value;
-        if (slokaId) {
-            var adhyayaId = document.getElementById('adhyaya').value;
-            var currentUrl = window.location.href;
-            var urlParts = currentUrl.split('/');
-            urlParts[urlParts.length - 1] = slokaId;
-            urlParts[urlParts.length - 3] = adhyayaId;
-            var newUrl = urlParts.join('/');
-            window.location.href = newUrl;
-        }
-    });
-});
 </script>

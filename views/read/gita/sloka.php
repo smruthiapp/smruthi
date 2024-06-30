@@ -3,32 +3,32 @@
 <?php
 // errors(1);
 $adhyayas = App::getIndex('gita');
-$adhyaya = $adhyayas[$_REQUEST['adhyaya']-1];
+$adhyaya = $adhyayas[$_REQUEST['adhyaya'] - 1];
 controller('Gita');
 $gita = new Gita;
 $sloka = $gita->getSloka($_REQUEST['adhyaya'], $_REQUEST['sloka'])[0];
 
 $slokaCount = $adhyaya['slokas'];
-$prev =  ($sloka['sloka'] == 1) ? [0 => ($sloka['adhyaya'] - 1), 1 => $adhyayas[$sloka['adhyaya']-2]['slokas']] : [0 => $sloka['adhyaya'], 1 => $sloka['sloka'] - 1 ];
-$next =  ($sloka['sloka'] >= $slokaCount) ? [0 => ($sloka['adhyaya'] + 1), 1 => 1] : [0 => $sloka['adhyaya'], 1 => $sloka['sloka'] +1 ];
+$prev = ($sloka['sloka'] == 1) ? [0 => ($sloka['adhyaya'] - 1), 1 => $adhyayas[$sloka['adhyaya'] - 2]['slokas']] : [0 => $sloka['adhyaya'], 1 => $sloka['sloka'] - 1];
+$next = ($sloka['sloka'] >= $slokaCount) ? [0 => ($sloka['adhyaya'] + 1), 1 => 1] : [0 => $sloka['adhyaya'], 1 => $sloka['sloka'] + 1];
 
 
-$config['APP_TITLE'] = "Bhagavad Gita - Adhyaya ".$sloka['adhyaya'].", Sloka ".$sloka['sloka']." | ". $config['APP_NAME'];
+$config['APP_TITLE'] = "Bhagavad Gita - Adhyaya " . $sloka['adhyaya'] . ", Sloka " . $sloka['sloka'] . " | " . $config['APP_NAME'];
 
-$config['APP_DESC'] = "Read Bhagavad Gita on our Smruthi App now. ".$adhyaya['name']." (".$adhyaya['transliteration'].") - Adhyaya ".$sloka['adhyaya'].", Sloka ".$sloka['sloka'].". ".$adhyaya['description'].".";
-
-
-$shlokas=$gita->getAllSlokas();
+$config['APP_DESC'] = "Read Bhagavad Gita on our Smruthi App now. " . $adhyaya['name'] . " (" . $adhyaya['transliteration'] . ") - Adhyaya " . $sloka['adhyaya'] . ", Sloka " . $sloka['sloka'] . ". " . $adhyaya['description'] . ".";
 
 
-require('views/partials/head.php');
+$shlokas = $gita->getAllSlokas();
+
+
+require ('views/partials/head.php');
 ?>
 
 <body>
     <nav class="navbar mx-auto position-fixed fixed-top shadow-sm">
         <div class="container-fluid mx-2 mt-4 d-block">
             <a class="link-smruthi-grey text-decoration-none"
-                href="<?php echo route('read/gita/adhyaya/'.$sloka['adhyaya']) ?>">
+                href="<?php echo route('read/gita/adhyaya/' . $sloka['adhyaya']) ?>">
 
                 <span class="fs-4">
                     <i class="bi bi-arrow-left"></i>
@@ -53,25 +53,25 @@ require('views/partials/head.php');
             </div>
 
             <h2 class="text-smruthi fw-bold fs-4">
-                <?php echo $adhyaya['name'];?>
+                <?php echo $adhyaya['name']; ?>
             </h2>
             <h2 class="text-smruthi-grey fw-bold fs-6">
-                <?php echo $adhyaya['transliteration'];?>
+                <?php echo $adhyaya['transliteration']; ?>
             </h2>
             <h3 class="text-muted fs-7">Adhyaya
-                <?php echo $sloka['adhyaya'];?>, Sloka
-                <?php echo $sloka['sloka'];?>
+                <?php echo $sloka['adhyaya']; ?>, Sloka
+                <?php echo $sloka['sloka']; ?>
             </h3>
         </div>
-        
-            
-                <div class="modals">
-                    <?php include('views/partials/share.php');?>
-                    <?php include('views/partials/settings.php');?>
-                    <?php include('views/partials/save.php');?>
-                    <?php include('views/partials/navigate.php');?>
-                </div>
-          
+
+
+        <div class="modals">
+            <?php include ('views/partials/share.php'); ?>
+            <?php include ('views/partials/settings.php'); ?>
+            <?php include ('views/partials/save.php'); ?>
+            <?php include ('views/partials/navigate.php'); ?>
+        </div>
+
 
     </nav>
 
@@ -82,26 +82,26 @@ require('views/partials/head.php');
 
 
             <?php
-                $adhyayas = App::getIndex('gita');
+            $adhyayas = App::getIndex('gita');
 
-                //print_r(removeEmptyLines($sloka['text']));
-        ?>
+            //print_r(removeEmptyLines($sloka['text']));
+            ?>
 
             <div class="design">
                 <div class="d1">
-                    <img src="<?php assets('img/design.svg')?>" alt="Design" class="img-fluid">
+                    <img src="<?php assets('img/design.svg') ?>" alt="Design" class="img-fluid">
                 </div>
             </div>
 
             <div class="text my-2">
                 <strong class="fs-5" id="text">
-                    <?php echo removeEmptyLines($sloka['text']);?>
+                    <?php echo removeEmptyLines($sloka['text']); ?>
                 </strong>
             </div>
 
             <div class="design">
                 <div class="d2">
-                    <img src="<?php assets('img/design.svg')?>" alt="Design" class="img-fluid">
+                    <img src="<?php assets('img/design.svg') ?>" alt="Design" class="img-fluid">
                 </div>
             </div>
 
@@ -119,7 +119,7 @@ require('views/partials/head.php');
                     </h2>
                     <div class="accordion-collapse collapse show" id="translationContent">
                         <div class="accordion-body pt-2">
-                            <div id="translation"><?php echo removeEmptyLines($sloka['translation_en'])?></div>
+                            <div id="translation"><?php echo removeEmptyLines($sloka['translation_en']) ?></div>
                         </div>
                     </div>
                 </div>
@@ -132,15 +132,15 @@ require('views/partials/head.php');
                             Commentary
                         </button>
                     </h2>
-                    
+
                     <div class="accordion-collapse collapse" id="commentaryContent">
                         <div class="accordion-body pt-2">
-                            <div id="commentary"><?php echo removeEmptyLines($sloka['commentary_en'])?></div>
+                            <div id="commentary"><?php echo removeEmptyLines($sloka['commentary_en']) ?></div>
                         </div>
                     </div>
 
                 </div>
-                
+
 
             </div>
 
@@ -148,70 +148,74 @@ require('views/partials/head.php');
 
         <div class="bg-smruthi-4 toolbar mx-auto pb-2  px-5 pb-2 shadow-sm z-2">
 
-              <div class="player">
-             <!-- Seek Bar -->
+            <div class="player">
+                <!-- Seek Bar -->
                 <input type="range" id="seekbar" value="0" min="0" max="100" step="1" class="mx-2">
             </div>
 
-             <div class="d-flex justify-content-between align-items-center">
-                    <a href="#" class="link-smruthi-grey fs-4 mx-2 order-1" id="settings" type="button"
-                data-bs-toggle="offcanvas" data-bs-target="#settingsModal" aria-controls="settingsModal"
-                aria-label="settings"> <i class="settings"> <img src="<?php assets('img/translate.svg')?>" alt="Translate"></i> </a>
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="#" class="link-smruthi-grey fs-4 mx-2 order-1" id="settings" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#settingsModal" aria-controls="settingsModal"
+                    aria-label="settings"> <i class="settings"> <img src="<?php assets('img/translate.svg') ?>"
+                            alt="Translate"></i> </a>
 
 
                 <div class="d-flex justify-content-center align-items-center order-3">
 
-                    <a href="<?php echo route('read/gita/adhyaya/'.$prev[0].'/sloka/'.$prev[1])?>" class="link-smruthi mx-2"
-                        <?php echo (empty($sloka['prev'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"' ;?> id="prev"><i class="prev"> <img src="<?php assets('img/prev.svg')?>" alt="Previous"></i></a>
+                    <a href="<?php echo route('read/gita/adhyaya/' . $prev[0] . '/sloka/' . $prev[1]) ?>"
+                        class="link-smruthi mx-2" <?php echo (empty($sloka['prev'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"'; ?> id="prev"><i class="prev"> <img
+                                src="<?php assets('img/prev.svg') ?>" alt="Previous"></i></a>
 
 
                     <a href="#" class="bi bi-play-circle-fill link-smruthi mx-2" id="play"></a>
                     <!-- Audio Element -->
-                    <audio id="audio-player" src="https://www.gitasupersite.iitk.ac.in/sites/default/files/audio/CHAP<?php echo $adhyaya['id']; ?>/<?php echo $adhyaya['id']; ?>-<?php echo $_REQUEST['sloka']; ?>.MP3"></audio>
+                    <audio id="audio-player"
+                        src="https://www.gitasupersite.iitk.ac.in/sites/default/files/audio/CHAP<?php echo $adhyaya['id']; ?>/<?php echo $adhyaya['id']; ?>-<?php echo $_REQUEST['sloka']; ?>.MP3"></audio>
 
 
-                    <a href="<?php echo route('read/gita/adhyaya/'.$next[0].'/sloka/'.$next[1])?>" class="link-smruthi mx-2"
-                        <?php echo (empty($sloka['next'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"' ;?> id="next"><i class="next"> <img src="<?php assets('img/next.svg')?>" alt="NextL"></i></a>
+                    <a href="<?php echo route('read/gita/adhyaya/' . $next[0] . '/sloka/' . $next[1]) ?>"
+                        class="link-smruthi mx-2" <?php echo (empty($sloka['next'])) ? 'disabled aria-disabled="true"' : 'aria-disabled="false"'; ?> id="next"><i class="next"> <img
+                                src="<?php assets('img/next.svg') ?>" alt="NextL"></i></a>
                 </div>
 
                 <a href="#" class="link-smruthi-grey fs-4 mx-2 order-4" id="navigate" type="button"
                     data-bs-toggle="offcanvas" data-bs-target="#navigateModal" aria-controls="navigateModal"
                     aria-label="navigate">
-                    <i class="navigate"> <img src="<?php assets('img/navigate.svg')?>" alt="Navigate"></i> 
+                    <i class="navigate"> <img src="<?php assets('img/navigate.svg') ?>" alt="Navigate"></i>
                 </a>
-                
-             </div>
+
+            </div>
 
         </div>
 
 
 
 
-        <?php include('views/partials/footer.php') ?>
+        <?php include ('views/partials/footer.php') ?>
     </div>
-    
-    
 
-                
-    <script src="<?php assets('sanscript/sanscript.js')?>"></script>
+
+
+
+    <script src="<?php assets('sanscript/sanscript.js') ?>"></script>
     <script>
         let sloka = []
-        sloka.id = "<?php echo $sloka['id'];?>"
-        sloka.text = `<?php echo removeEmptyLines($sloka['text']);?>`
+        sloka.id = "<?php echo $sloka['id']; ?>"
+        sloka.text = `<?php echo removeEmptyLines($sloka['text']); ?>`
         sloka.translation = []
-        sloka.translation.en = `<?php echo removeEmptyLines($sloka['translation_en']);?>`
-        sloka.translation.te = `<?php echo removeEmptyLines($sloka['translation_te']);?>`
-        sloka.translation.ta = `<?php echo removeEmptyLines($sloka['translation_ta']);?>`
-        sloka.translation.hi = `<?php echo removeEmptyLines($sloka['translation_hi']);?>`
-        sloka.translation.gu = `<?php echo removeEmptyLines($sloka['translation_gu']);?>`
-        sloka.translation.or = `<?php echo removeEmptyLines($sloka['translation_or']);?>`
+        sloka.translation.en = `<?php echo removeEmptyLines($sloka['translation_en']); ?>`
+        sloka.translation.te = `<?php echo removeEmptyLines($sloka['translation_te']); ?>`
+        sloka.translation.ta = `<?php echo removeEmptyLines($sloka['translation_ta']); ?>`
+        sloka.translation.hi = `<?php echo removeEmptyLines($sloka['translation_hi']); ?>`
+        sloka.translation.gu = `<?php echo removeEmptyLines($sloka['translation_gu']); ?>`
+        sloka.translation.or = `<?php echo removeEmptyLines($sloka['translation_or']); ?>`
         sloka.commentary = []
-        sloka.commentary.en = `<?php echo removeEmptyLines($sloka['commentary_en']);?>`
-        sloka.commentary.te = `<?php echo removeEmptyLines($sloka['commentary_te']);?>`
-        sloka.commentary.ta = `<?php echo removeEmptyLines($sloka['commentary_ta']);?>`
-        sloka.commentary.hi = `<?php echo removeEmptyLines($sloka['commentary_hi']);?>`
-        sloka.commentary.gu = `<?php echo removeEmptyLines($sloka['commentary_gu']);?>`
-        sloka.commentary.or = `<?php echo removeEmptyLines($sloka['commentary_or']);?>`
+        sloka.commentary.en = `<?php echo removeEmptyLines($sloka['commentary_en']); ?>`
+        sloka.commentary.te = `<?php echo removeEmptyLines($sloka['commentary_te']); ?>`
+        sloka.commentary.ta = `<?php echo removeEmptyLines($sloka['commentary_ta']); ?>`
+        sloka.commentary.hi = `<?php echo removeEmptyLines($sloka['commentary_hi']); ?>`
+        sloka.commentary.gu = `<?php echo removeEmptyLines($sloka['commentary_gu']); ?>`
+        sloka.commentary.or = `<?php echo removeEmptyLines($sloka['commentary_or']); ?>`
 
         text = document.querySelector('#text')
         translation = document.querySelector('#translation')
@@ -344,10 +348,10 @@ require('views/partials/head.php');
 
             });
 
-            audio.addEventListener('timeupdate', function() {
-              const value = (audio.currentTime / audio.duration) * 100;
-              seekbar.value = value;
-              seekbar.style.setProperty('--value', `${value}%`);
+            audio.addEventListener('timeupdate', function () {
+                const value = (audio.currentTime / audio.duration) * 100;
+                seekbar.value = value;
+                seekbar.style.setProperty('--value', `${value}%`);
             });
 
 
@@ -376,7 +380,7 @@ require('views/partials/head.php');
             });
         });
 
-        
+
     </script>
 
 
