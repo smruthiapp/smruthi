@@ -18,13 +18,54 @@ $config['APP_TITLE'] = "Bhagavad Gita - Adhyaya " . $sloka['adhyaya'] . ", Sloka
 $config['APP_DESC'] = "Read Bhagavad Gita on our Smruthi App now. " . $adhyaya['name'] . " (" . $adhyaya['transliteration'] . ") - Adhyaya " . $sloka['adhyaya'] . ", Sloka " . $sloka['sloka'] . ". " . $adhyaya['description'] . ".";
 
 
-$shlokas = $gita->getAllSlokas();
+$slokas = $gita->getAllSlokas();
 
+$currentUser=App::getUser();
+
+
+controller('Library');
+$library = new Library;
+
+$isLiked=false;
+
+if($currentUser){
+    $isLiked = $library->isLiked($currentUser['userID'],$sloka['id'],"gita");
+}
 
 require ('views/partials/head.php');
 ?>
 
 <body>
+
+    <?php 
+
+        if(isset($_POST['save'])){
+
+            if($currentUser){
+                $save = $library->save($currentUser['userID'],$sloka['id'],"gita");
+                if($save){
+                    echo `<script> document.getElementById("unSaveBtn").innerHTML='<i class="bi bi-heart-fill"></i>';</script>`;
+                }
+            }
+
+            echo "<script>window.location.href=window.location.href; </script>";
+        }
+
+        if(isset($_POST['unSave'])){
+
+            if($currentUser){
+                $unSave = $library->remove($currentUser['userID'],$sloka['id'],"gita");
+                if($unSave){
+                    echo `<script> document.getElementById("saveBtn").innerHTML='<i class="bi bi-heart"></i>';</script>`;
+                }
+            }
+            echo "<script>window.location.href=window.location.href; </script>";
+        }
+
+
+    ?>
+
+
     <nav class="navbar mx-auto position-fixed fixed-top shadow-sm">
         <div class="container-fluid mx-2 mt-4 d-block">
             <a class="link-smruthi-grey text-decoration-none"
@@ -40,17 +81,38 @@ require ('views/partials/head.php');
         <div class="container-fluid mx-2 mt-3 d-block hideOnScroll">
             <div class="float-end fs-4 mt-3">
 
-                <a href="#saveModal" class="link-smruthi-grey fw-bold me-3" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#saveModal" aria-controls="saveModal" aria-label="Share"><i
-                        class="bi bi-heart"></i></a>
+                <?php 
+                    if(!$currentUser){
+                        echo '<a href="#" class="link-smruthi-grey fw-bold me-3" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Only accessible after login"><i
+                        class="bi bi-heart"></i></a>';
+                    }else{
+
+                        if($isLiked){
+                            echo '<a href="#" class="link-smruthi-grey fw-bold me-3" id="unSaveBtn">
+                            <i class="bi bi-heart-fill"></i></a>';
+                        }else{
+                            echo '<a href="#" class="link-smruthi-grey fw-bold me-3" id="saveBtn">
+                            <i class="bi bi-heart"></i></a>';
+                        }
+                    }
+
+                        ?>
 
 
-                <a href="#shareModal" class="link-smruthi-grey fw-bold me-3" type="button" data-bs-toggle="offcanvas"
+                 <a href="#shareModal" class="link-smruthi-grey fw-bold me-3" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#shareModal" aria-controls="shareModal" aria-label="Share"><i
                         class="bi bi-share"></i></a>
 
 
             </div>
+
+                <form method="post" name="saveForm" id="saveForm">
+                    <input type="hidden" name="save" value="save">
+                </form>
+
+                <form method="post" name="unSaveForm" id="unSaveForm">
+                    <input type="hidden" name="unSave" value="unSave">
+                </form>
 
             <h2 class="text-smruthi fw-bold fs-4">
                 <?php echo $adhyaya['name']; ?>
@@ -379,6 +441,28 @@ require ('views/partials/head.php');
                 playButton.classList.add('bi-play-circle-fill');
             });
         });
+
+        // Check if unSaveBtn exists before adding event listener
+        var unSaveBtn = document.getElementById('unSaveBtn');
+        if (unSaveBtn) {
+            unSaveBtn.addEventListener('click', function(event) {
+                document.getElementById('unSaveForm').submit(); // Submit the form
+            });
+        }
+
+        // Check if saveBtn exists before adding event listener
+        var saveBtn = document.getElementById('saveBtn');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', function(event) {
+                document.getElementById('saveForm').submit(); // Submit the form
+            });
+        }
+
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+          return new bootstrap.Popover(popoverTriggerEl)
+        })
+
 
 
     </script>

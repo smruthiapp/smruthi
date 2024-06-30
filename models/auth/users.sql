@@ -1,9 +1,22 @@
+-- users Table
 CREATE TABLE users (
-    name varchar(255) NOT NULL,
-    email varchar(255) NOT NULL,
-    phone varchar(10) NOT NULL,
-    password varchar(255) NOT NULL,
-    role ENUM ('user', 'moderator', 'admin') DEFAULT 'user',
-    status int DEFAULT 0,
-    PRIMARY KEY (email)
+    userID VARCHAR(255) PRIMARY KEY NOT NULL, 
+    email VARCHAR(255),
+    phone VARCHAR(10) NOT NULL,
+    name VARCHAR(255) ,
+    gender ENUM('male', 'female'),
+    orderId VARCHAR(10),
+    role ENUM('admin', 'manager', 'partner', 'host', 'user') DEFAULT 'user',
+    status ENUM('verified', 'pending', 'deleted') DEFAULT 'pending',
+    createdAt DATETIME,
+    verifiedAt DATETIME
 );
+
+INSERT INTO users (`name`, `email`, `phone`, `gender`, `role`)
+VALUES (
+        "Arun",
+        "arun@graphenephp.com",
+        "9121325466",
+        "male",
+        "admin"
+    )
