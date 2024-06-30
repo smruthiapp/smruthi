@@ -104,4 +104,46 @@ class Library{
     }
 
 
+     public function getSaved($userID){
+
+        controller('Gita');
+        controller('Ramayanam');
+
+        DB::connect();
+        $this->userID=$userID;
+
+         $saveSloka = DB::select('library','*',"userID = '$userID' ")->fetchAll();
+         DB::close();
+
+         // Initialize an empty array to store all slokas
+        $allSlokas = [];
+
+        // Iterate through each row
+        foreach ($saveSloka as $row) {
+            // Get the book name from the current row
+            $book = $row['book'];
+            $id = $row['slokaID'];
+            
+            if($book == "gita"){
+                // Fetch slokas for the current book
+                $gita = new Gita;
+                $sloka = $gita->getSlokaById($id);
+
+            }
+            else if($book == "ramayanam"){
+                // Fetch slokas for the current book
+                $ramayanam = new ramayanam;
+                $sloka = $ramayanam->getSlokaById($id);
+            }
+            // Merge the fetched slokas into the allSlokas array
+            $allSlokas = array_merge($allSlokas, $sloka);
+        }
+
+
+
+        return $allSlokas;
+
+    }
+
+
 }

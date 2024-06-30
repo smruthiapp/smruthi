@@ -41,6 +41,14 @@ class Ramayanam{
         return $query;
     }
 
+     public function getSlokaById($id){
+        
+        DB::connect();
+        $query = DB::select('ramayanam', '*', "id = '$id' ")->fetchAll();
+        DB::close();
+        return $query;
+    }
+
     public function updateSlokas($file)
 {
     errors();
