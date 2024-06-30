@@ -39,7 +39,13 @@ require('views/partials/head.php');
                 <ul class="list-group">
                     <?php
                     foreach ($slokas as $sloka) {
+                     
+                     if(isset($sloka['adhyaya'])){
                     ?>
+                        <h3 class="text-muted fs-7">Gita: Adhyaya
+                            <?php echo $sloka['adhyaya'];?>, Sloka
+                            <?php echo $sloka['sloka'];?>
+                        </h3>
                         <a class="text-decoration-none mb-3" href="<?php echo route('read/gita/adhyaya/' . explode(".", $sloka['id'])[0] . '/sloka/' . explode(".", $sloka['id'])[1]); ?>">
                             <li class="list-group-item d-flex align-items-center border-0 border-bottom align-middle">
                                 <div class="id">
@@ -57,8 +63,33 @@ require('views/partials/head.php');
                                 </div>
                             </li>
                         </a>
-                    <?php
-                    } ?>
+                    <?php } if(isset($sloka['kanda'])){ ?>
+
+                      <h3 class="text-muted fs-7">Ramayana: Kanda
+                            <?php echo $sloka['kanda'];?>, Sarga
+                            <?php echo $sloka['sarga'];?>, Sloka <?php echo $sloka['sloka'];?>
+                            ?>
+                        </h3>
+                        <a class="text-decoration-none mb-3" href="<?php echo route('read/ramayanam/kanda/'.$sloka['kanda'].'/sarga/'.$sloka['sarga'].'/sloka/'.$sloka['sloka']) ?>">
+                            <li class="list-group-item d-flex align-items-center border-0 border-bottom align-middle">
+                                <div class="id">
+                                    <span class="badge bg-smruthi-4 text-smruthi float-start me-2">
+                                        <?php echo explode(".", $sloka['id'])[1]; ?>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="text-left fw-bold">
+                                        <?php echo removeEmptyLines($sloka['text']); ?>
+                                    </div>
+                                </div>
+                                <div class="float-end">
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </li>
+                        </a>
+
+
+                    <?php } } ?>
                 </ul>
             <?php } else { ?>
                 No saved slokas found!
