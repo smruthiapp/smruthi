@@ -107,7 +107,7 @@ require('views/partials/head.php');
             <?php } else { ?>
                 
                  <div class="mx-auto text-center">
-                     <img src="<?php echo assets('img/Sri.Svg')?>"
+                     <img src="<?php echo assets('img/Sri.svg')?>"
               alt="Sri" width="250"
               class="img-fluid"/>
 
