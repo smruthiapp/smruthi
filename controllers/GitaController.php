@@ -29,4 +29,13 @@ class Gita{
         return $query;
     }
 
+    public function getSlokaById($id){
+        
+        DB::connect();
+        $query = DB::select('gita', '*', "id = '$id'")->fetchAll();
+        DB::close();
+        return $query;
+    }
+
+
 }

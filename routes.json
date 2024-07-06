@@ -5,11 +5,14 @@
   "read": {
     "path": "views/read/index.php"
   },
+   "saved": {
+    "path": "views/save/index.php"
+  },
   "test": {
     "path": "views/test.php"
   },
   "profile": {
-    "path": "views/auth/register.php"
+    "path": "views/profile/profile.php"
   },
 
   "read/gita":{
